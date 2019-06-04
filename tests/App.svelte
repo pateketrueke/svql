@@ -1,5 +1,5 @@
 <script>
-  import { Out, query, setupClient } from '../../src/main';
+  import { Out, query, setupClient } from '../src/main';
 
   setupClient({
     url: 'https://graphql-pokemon.now.sh/graphql',
