@@ -12,7 +12,7 @@ export function key(gql) {
   const offset = seen.indexOf(gql);
 
   if (!keys[offset]) {
-    keys[offset] = gql.toString().replace(/\W+/g, '_');
+    keys[offset] = `$${offset}${Math.random().toString(36).substr(2)}`;
   }
 
   return keys[offset];
@@ -61,7 +61,7 @@ export class GraphQLClient {
         state.update(old => Object.assign(old, { [key(gql)]: result.data }));
       }
 
-      return retval;
+      return retval || result.data;
     }
 
     function query(gql, data, callback) {

@@ -3,7 +3,7 @@
   export let error = null;
 
   function fixedStack(e) {
-    return (e.stack || e.toString()).replace(/(Error:)(.+?)$/m, '$1');
+    return (e.stack || e.toString()).replace(/.*Error:(.+?)$/m, '$1');
   }
 
   function isError(e) {

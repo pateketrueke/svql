@@ -1,4 +1,4 @@
-import { GraphQLClient, state as _state, conn as _conn } from './client';
+import { GraphQLClient, state as _state, conn as _conn, key as _key } from './client';
 
 export { default as Status } from './components/Status.svelte';
 export { default as Failure } from './components/Failure.svelte';
@@ -11,6 +11,7 @@ function undef() {
 
 export const state = _state;
 export const conn = _conn;
+export const key = _key;
 
 export let query = undef;
 export let mutation = undef;
