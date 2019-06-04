@@ -4,3 +4,4 @@
 !docker
 !*.js
 !*.json
+!Makefile

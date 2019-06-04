@@ -10,6 +10,9 @@ test: src docker ## Run tests for CI
 	@docker-compose $(BASE_COMPOSE) up -d chrome
 	@docker exec e2e /home/docker/run-tests.sh
 
+start: src docker ## Dev server for CI
+	@docker-compose $(BASE_COMPOSE) up
+
 build: ## Build image for docker
 	@docker-compose $(BASE_COMPOSE) build
 

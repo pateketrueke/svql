@@ -24,6 +24,6 @@ services:
       - ../docs:/var/lib/app/docs
       - ../tests:/var/lib/app/tests
     expose:
-      - 3001
+      - 8080
     ports:
-      - 3001:3001
+      - 8080:8080
