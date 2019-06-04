@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { onMount, createEventDispatcher } from 'svelte';
   import { conn } from '../client';
 
   let ref = null;
@@ -8,6 +8,7 @@
 
   export let id = '';
   export let modal = false;
+  export let autofocus = false;
   export let className = '';
   export { cssClass as class };
 
@@ -26,6 +27,27 @@
       dispatch('cancel', e);
     }
   }
+
+  onMount(() => {
+    if (autofocus) {
+      const nodes = ref.querySelectorAll('input,button,textarea');
+
+      let node;
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        if (nodes[i].tagName === 'INPUT' && nodes[i].type !== 'hidden') {
+          nodes[i].focus();
+          break;
+        }
+
+        node = nodes[i]
+      }
+
+      if (node) {
+        node.focus();
+      }
+    }
+  });
 </script>
 
 <style>
