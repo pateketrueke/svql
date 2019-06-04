@@ -1,4 +1,4 @@
-> The easiest way to consume GraphQL APIs
+> The _easiest_ way to consume GraphQL APIs
 >
 > [![Build Status](https://api.travis-ci.org/pateketrueke/svql.svg?branch=master)](https://travis-ci.org/pateketrueke/svql)
 > [![NPM version](https://badge.fury.io/js/svql.svg)](http://badge.fury.io/js/svql)
@@ -59,11 +59,11 @@ Refetching of queries can be done through reactive statements, e.g.
 </script>
 ```
 
-So each time `name` changes the same query is executed again.
+So each time `name` changes the query is executed again.
 
-### `mutation(gql, callback): Function`
+### `mutation(gql[, callback]): Function`
 
-> The callback will receive a `commit` function that demands variables-input as first argument, and optionally a second callback to handle the response. Values returned by this function are also promises.
+> The callback will receive a `commit` function that accepts variables-input as first argument, and optionally a second function to handle the response. Values returned by this function are also promises.
 
 Mutations are functions that could make more work, so you need to be sure and `commit` once you're ready for the actual request, e.g.
 
@@ -85,7 +85,7 @@ Mutations are functions that could make more work, so you need to be sure and `c
 <button on:click={doLogin}>Log in</button>
 ```
 
-Since `mutation()` returns a function there's no need to setup reactive statements to _refetch_ this, just calling the generated function is enough.
+Since `mutation()` returns a function there's no need to setup reactive statements to _refetch_ it, just calling the generated function is enough.
 
 ## Components
 
@@ -134,7 +134,7 @@ It is a `<form />` wrapper that handle various effects:
 
 - Subscribes to the GraphQL connection status and block its content while loading...
 - When rendered as a modal-overlay it can be canceled with the `ESC` key or clicking outside
-- It will setup `autofocus` on the first input-element found inside the inner `<form />` (js only)
+- It can setup `autofocus` on the first input-element found inside the inner `<form />` (js only)
 
 Available props:
 
@@ -143,11 +143,11 @@ Available props:
 - `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
 - `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
-## Utilities
+## Public API
 
-- `setupClient(options[, key])` &mdash;
-- `saveSession(data[, key])` &mdash;
-- `read(gql)` &mdash;
-- `key(gql)` &mdash;
-- `$state` &mdash;
-- `$conn` &mdash;
+- `setupClient(options[, key])` &mdash; Creates a `FetchQL` instance with the given `options`, `key` is used for session loading
+- `saveSession(data[, key])` &mdash; Serializes any given value as the current session, it MUST be a plain object or null
+- `read(gql|key)` &mdash; Retrieve current value from `state` by key, a shorthand for `$state[key]` values
+- `key(gql)` &mdash; Returns a valid `key` from GQL-strings, otherwise the same value is returned
+- `$state` &mdash; Store with all resolved state by the `fetchql` singleton
+- `$conn` &mdash; Store with connection details during `fetchql` requests
