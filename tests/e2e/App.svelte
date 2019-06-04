@@ -1,19 +1,22 @@
-<script context="module">
-  import { Router, Route, navigateTo } from 'svero';
-  import { setupClient, query, In } from '../../src/main';
-  import PokemonList from './PokemonList.svelte';
-  import PokemonView from './PokemonView.svelte';
+<script>
+  import { Out, query, setupClient } from '../../src/main';
 
   setupClient({
     url: 'https://graphql-pokemon.now.sh/graphql',
   });
+
+  const GET_POKEMON_INFO = `
+    query($name: String!) {
+      pokemon(name: $name) {
+        id name image number
+      }
+    }
+  `;
+
+  query(GET_POKEMON_INFO, { name: 'Pikachu' });
 </script>
 
-<Router>
-  <PokemonList max=150 on:change={e => navigateTo(`/${e.detail.id}`)} />
-  <Route path="/:id" let:router>
-    <In modal on:cancel={() => navigateTo('/')}>
-      <PokemonView id={router.params.id} />
-    </In>
-  </Route>
-</Router>
+<Out nostatus from={GET_POKEMON_INFO} let:data>
+  <h3>{data.pokemon.number} &mdash; {data.pokemon.name}</h3>
+  <img alt={data.pokemon.name} src={data.pokemon.image} />
+</Out>
