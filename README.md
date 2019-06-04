@@ -18,7 +18,7 @@
 </script>
 
 <Out nostatus from={GET_POKEMON_INFO} let:data>
-  <h3>{data.pokemon.number} &mdash; {data.pokemon.name}</h3>
+  <h3>{data.pokemon.number}. {data.pokemon.name}</h3>
   <img alt={data.pokemon.name} src={data.pokemon.image} />
 </Out>
 ```
