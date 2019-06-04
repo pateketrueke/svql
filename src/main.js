@@ -1,4 +1,4 @@
-import { GraphQLClient, state as _state, conn as _conn, key as _key } from './client';
+import { GraphQLClient, state as _state, conn as _conn, key as _key, read as _read } from './client';
 
 export { default as Status } from './components/Status.svelte';
 export { default as Failure } from './components/Failure.svelte';
@@ -9,10 +9,15 @@ function undef() {
   throw new Error('setupClient() must be called before!');
 }
 
+// shared stores
 export const state = _state;
 export const conn = _conn;
+
+// accessors
+export const read = _read;
 export const key = _key;
 
+// methods
 export let query = undef;
 export let mutation = undef;
 

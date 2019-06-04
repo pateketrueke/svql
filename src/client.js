@@ -1,8 +1,15 @@
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 import FetchQL from 'fetchql';
+
+export const conn = writable({});
+export const state = writable({});
 
 const seen = [];
 const keys = [];
+
+export function read(gql) {
+  return get(state)[key(gql)];
+}
 
 export function key(gql) {
   if (!seen.includes(gql)) {
@@ -17,9 +24,6 @@ export function key(gql) {
 
   return keys[offset];
 }
-
-export const conn = writable({});
-export const state = writable({});
 
 export class GraphQLClient {
   constructor(url, options) {
@@ -84,7 +88,6 @@ export class GraphQLClient {
     }
 
     return {
-      key,
       query,
       mutation,
     };
