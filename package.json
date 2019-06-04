@@ -1,17 +1,17 @@
 {
-  "name": "svelte-fetchql",
+  "name": "svql",
   "version": "0.0.0",
   "description": "FetchQL wrapper for Svelte 3",
-  "main": "dist/svelte-fetchql.js",
-  "module": "dist/svelte-fetchql.es.js",
-  "browser": "dist/svelte-fetchql.umd.js",
+  "main": "dist/svql.js",
+  "module": "dist/svql.es.js",
+  "browser": "dist/svql.umd.js",
   "files": [
     "dist/*.*"
   ],
   "scripts": {
-    "build:browser": "bili src/main.js --format umd-min --module-name svelte-fetchql --minimal --file-name svelte-fetchql.umd.js",
-    "build:node": "bili src/main.js --minimal --format cjs --file-name svelte-fetchql.js",
-    "build:esm": "bili src/main.js --minimal --format es --file-name svelte-fetchql.es.js",
+    "build:browser": "bili src/main.js --format umd-min --module-name svql --minimal --file-name svql.umd.js",
+    "build:node": "bili src/main.js --minimal --format cjs --file-name svql.js",
+    "build:esm": "bili src/main.js --minimal --format es --file-name svql.es.js",
     "build": "npm run build:browser && npm run build:node && npm run build:esm",
     "dev": "bili --format iife --minimal tests/e2e/*.test.js -d docs -w",
     "serve": "live-server docs --quiet --no-browser --entry-file=index.html --proxy=/api:http://localhost:8081/api",
