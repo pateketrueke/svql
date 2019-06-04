@@ -5,11 +5,12 @@
 
   export let from = null;
   export let label = 'An error has ocurred';
-  export let pending = 'Loading...';
-  export let nostatus = false;
+  export let pending = 'Please wait...';
   export let otherwise = 'Done';
+  export let loading = 'Loading...';
+  export let nostatus = false;
 
-  $: promise = $state[key(from)];
+  $: promise = typeof from === 'string' ? $state[key(from)] : from;
 </script>
 
 {#if !nostatus}
@@ -21,7 +22,7 @@
 {#if promise}
   {#await promise}
     <slot name="loading">
-      <h3>{pending}</h3>
+      <h3>{loading}</h3>
     </slot>
   {:then data}
     <slot {data} />
