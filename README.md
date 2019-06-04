@@ -89,7 +89,7 @@ Since `mutation()` returns a function there's no need to setup reactive statemen
 
 ## Components
 
-You can access `sqvl` stores as `conn` and `state` respectively, however is better to use the following components to deal with. :sunglasses:
+You can access `svql` stores as `conn` and `state` respectively, however is better to use the following components to deal with. :sunglasses:
 
 ### `<Failure {label} {error} />`
 
@@ -113,11 +113,11 @@ Available props:
 
 Available slots:
 
-- `{pending}` &mdash; Replace the `{:await}` block, default is an `<h3 />`
-- `{otherwise}` &mdash; Replace the `{:then}` block, default is an `<h3 />`
-- `{exception}` &mdash; Replace the  `{:catch}` block from above
+- `pending` &mdash; Replace the `{:await}` block, default is an `<h3 />`
+- `otherwise` &mdash; Replace the `{:then}` block, default is an `<h3 />`
+- `exception` &mdash; Replace the  `{:catch}` block from above
 
-### `<Out {nostatus} {loading} {...statusProps} let:data />`
+### `<Out {nostatus} {loading} {...} let:data />`
 
 Use this component to access data `from={promise}` inside, or `from={GQL}` to extract it from resolved state.
 
@@ -125,7 +125,7 @@ Available props:
 
 - `{nostatus}` &mdash; Its presence disables the `<Status />` render
 - `{loading}` &mdash; Message while the promise is being resolved...
-- `{...statusProps}` &mdash; Same props from `<Status />`
+- `{...}` &mdash; Same props from `<Status />`
 - `let:data` &mdash; Unbound `data` inside
 
 ### `<In {id} {class|className} {modal} {autofocus} />`
