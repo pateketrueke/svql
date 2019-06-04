@@ -2,7 +2,6 @@
 >
 > [![Build Status](https://api.travis-ci.org/pateketrueke/svql.svg?branch=master)](https://travis-ci.org/pateketrueke/svql)
 > [![NPM version](https://badge.fury.io/js/svql.svg)](http://badge.fury.io/js/svql)
-> [![Coverage Status](https://codecov.io/github/pateketrueke/svql/coverage.svg?branch=master)](https://codecov.io/github/pateketrueke/svql)
 > [![Known Vulnerabilities](https://snyk.io/test/npm/svql/badge.svg)](https://snyk.io/test/npm/svql)
 
 ```html
@@ -134,7 +133,7 @@ It is a `<form />` wrapper that handle various effects:
 
 - Subscribes to the GraphQL connection status and block its content while loading...
 - When rendered as a modal-overlay it can be canceled with the `ESC` key or clicking outside
-- It can setup `autofocus` on the first input-element found inside the inner `<form />` (js only)
+- It can setup `autofocus` on the first input-element found inside the inner `<form />` wrapper (js only)
 
 Available props:
 
