@@ -22,7 +22,7 @@ export let query = undef;
 export let mutation = undef;
 
 export function saveSession(values, sessionKey) {
-  localStorage.setItem(sessionKey || 'session', JSON.stringify(values));
+  localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
 }
 
 export function setupClient(options, sessionKey) {
