@@ -37,7 +37,7 @@ Both `query` and `mutation` helpers will take the GQL and returns a promise or f
 
 ### `query(gql[, data[, callback]]): Promise`
 
-> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}` and such, `data` is optional the same as `callback` function.
+> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}` and such, `data` is optional the same as `callback` function. Any truthy value returned by this callback will be used in-place of the regular response.
 
 Accessing those values can be done through `<Out />` components as above, or by watching the returned promises, e.g.
 
@@ -85,24 +85,69 @@ Mutations are functions that could make more work, so you need to be sure and `c
 <button on:click={doLogin}>Log in</button>
 ```
 
-Normally you don't access those responses on your markup, but of course you can do it the same way as queries.
-
 Since `mutation()` returns a function there's no need to setup reactive statements to _refetch_ this, just calling the generated function is enough.
 
 ## Components
 
-### `<Failure />`
+You can access `sqvl` stores as `conn` and `state` respectively, however is better to use the following components to deal with. :sunglasses:
 
-### `<Status />`
+### `<Failure {label} {error} />`
 
-### `<Out />`
+This component is used to format captured errors from `{:catch}` blocks.
 
-### `<In />`
+Available props:
+
+- `{label}` &mdash; Title used for the failure message
+- `{error}` &mdash; Error object or array of errors to display
+
+### `<Status {from} {label} {pending} {otherwise} />`
+
+It takes a `from={promise}` value and then render its progress, catch the failure, etc.
+
+Available props:
+
+- `{from}` &mdash; Promise-like value to handle status changes
+- `{label}` &mdash; Label used for `{:catch error}` handling with `<Failure />`
+- `{pending}` &mdash; Message while the promise is being resolved...
+- `{otherwise}` &mdash; Message while once promise has resolved successfully
+
+Available slots:
+
+- `{pending}` &mdash; Replace the `{:await}` block, default is an `<h3 />`
+- `{otherwise}` &mdash; Replace the `{:then}` block, default is an `<h3 />`
+- `{exception}` &mdash; Replace the  `{:catch}` block from above
+
+### `<Out {nostatus} {loading} {...statusProps} let:data />`
+
+Use this component to access data `from={promise}` inside, or `from={GQL}` to extract it from resolved state.
+
+Available props:
+
+- `{nostatus}` &mdash; Its presence disables the `<Status />` render
+- `{loading}` &mdash; Message while the promise is being resolved...
+- `{...statusProps}` &mdash; Same props from `<Status />`
+- `let:data` &mdash; Unbound `data` inside
+
+### `<In {id} {class|className} {modal} {autofocus} />`
+
+It is a `<form />` wrapper that handle various effects:
+
+- Subscribes to the GraphQL connection status and block its content while loading...
+- When rendered as a modal-overlay it can be canceled with the `ESC` key or clicking outside
+- It will setup `autofocus` on the first input-element found inside the inner `<form />` (js only)
+
+Available props:
+
+- `{id}` &mdash; Used `id` for the inner `<form />` element
+- `{class|className}` &mdash; Used `class` for the inner `<form />` element
+- `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
+- `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
 ## Utilities
 
-- `saveSession(data[, key])`
-- `setupClient(options)`
-- `key(gql)`
-- `$state`
-- `$conn`
+- `setupClient(options[, key])` &mdash;
+- `saveSession(data[, key])` &mdash;
+- `read(gql)` &mdash;
+- `key(gql)` &mdash;
+- `$state` &mdash;
+- `$conn` &mdash;
