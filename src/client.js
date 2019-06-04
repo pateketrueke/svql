@@ -12,17 +12,21 @@ export function read(gql) {
 }
 
 export function key(gql) {
-  if (!seen.includes(gql)) {
-    seen.push(gql);
+  if (/(^|\b)(query|mutation)\b/i.test(gql)) {
+    if (!seen.includes(gql)) {
+      seen.push(gql);
+    }
+
+    const offset = seen.indexOf(gql);
+
+    if (!keys[offset]) {
+      keys[offset] = `$${offset}${Math.random().toString(36).substr(2)}`;
+    }
+
+    return keys[offset];
   }
 
-  const offset = seen.indexOf(gql);
-
-  if (!keys[offset]) {
-    keys[offset] = `$${offset}${Math.random().toString(36).substr(2)}`;
-  }
-
-  return keys[offset];
+  return gql;
 }
 
 export class GraphQLClient {
