@@ -1,22 +1,11 @@
 <script>
-  import { Out, query, setupClient } from '../src/main';
-
-  setupClient({
-    url: 'https://graphql-pokemon.now.sh/graphql',
-  });
-
-  const GET_POKEMON_INFO = `
-    query($name: String!) {
-      pokemon(name: $name) {
-        id name image number
-      }
-    }
-  `;
-
-  query(GET_POKEMON_INFO, { name: 'Pikachu' });
+  import { Router, Route } from 'svero';
+  import { Pokemon } from './pages/pokemon';
 </script>
 
-<Out nostatus from={GET_POKEMON_INFO} let:data>
-  <h3>{data.pokemon.number}. {data.pokemon.name}</h3>
-  <img alt={data.pokemon.name} src={data.pokemon.image} />
-</Out>
+<Router>
+  <Route path="*">
+    <h1>It works!</h1>
+  </Route>
+  <Route path="/:name" component={Pokemon} />
+</Router>

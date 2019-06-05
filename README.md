@@ -28,6 +28,7 @@
   <img alt={data.pokemon.name} src={data.pokemon.image} />
 </Out>
 ```
+
 ## How it works?
 
 `svql` use a [fetchql]() singleton to talk with GraphQL, configure it through the `setupClient()` method.
