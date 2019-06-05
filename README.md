@@ -114,8 +114,8 @@ Available props:
 Available slots:
 
 - `pending` &mdash; Replace the `{:await}` block, default is an `<h3 />`
-- `otherwise` &mdash; Replace the `{:then}` block, default is an `<h3 />`
-- `exception` &mdash; Replace the  `{:catch}` block from above
+- `otherwise` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
+- `exception` &mdash; Replace the  `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
 ### `<Out {nostatus} {loading} {...} let:data />`
 
@@ -127,6 +127,12 @@ Available props:
 - `{loading}` &mdash; Message while the promise is being resolved...
 - `{...}` &mdash; Same props from `<Status />`
 - `let:data` &mdash; Unbound `data` inside
+
+Available slots:
+
+- `status` &mdash; Replaces the `<Status />` render with custom markup; it receives the same props as `<Status />`
+- `loading` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
+- `failure` &mdash; Replace the `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
 ### `<In {id} {class|className} {modal} {autofocus} />`
 
