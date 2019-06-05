@@ -27,7 +27,7 @@ export function saveSession(values, sessionKey) {
   localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
 }
 
-export function setupClient(options, sessionKey) {
+export function useClient(options, sessionKey) {
   let _session;
 
   try {
@@ -43,10 +43,14 @@ export function setupClient(options, sessionKey) {
     _headers.Authorization = `Bearer ${_session.token}`;
   }
 
-  const client = new GraphQLClient({
+  return new GraphQLClient({
     ..._options,
     headers: _headers,
   });
+}
+
+export function setupClient(options, sessionKey) {
+  const client = useClient(options, sessionKey);
 
   query = client.query;
   mutation = client.mutation;

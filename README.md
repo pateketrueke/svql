@@ -151,7 +151,8 @@ Available props:
 
 ## Public API
 
-- `setupClient(options[, key])` &mdash; Creates a `FetchQL` instance with the given `options`, `key` is used for session loading
+- `setupClient(options[, key])` &mdash; Configure a `FetchQL` singleton with the given `options`, `key` is used for session loading
+- `useClient(options[, key])` &mdash; Returns a `FetchQL` instance with the given `options`, `key` is used for session loading
 - `saveSession(data[, key])` &mdash; Serializes any given value as the current session, it MUST be a plain object or null
 - `read(gql|key)` &mdash; Retrieve current value from `state` by key, a shorthand for `$state[key]` values
 - `key(gql)` &mdash; Returns a valid `key` from GQL-strings, otherwise the same value is returned

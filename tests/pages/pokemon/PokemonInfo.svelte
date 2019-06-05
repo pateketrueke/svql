@@ -1,8 +1,8 @@
 <script context="module">
-  import { query, setupClient } from '../../../src/main';
+  import { useClient } from '../../../src/main';
   import { delay } from '../../helpers';
 
-  setupClient({
+  const { query } = useClient({
     url: 'https://graphql-pokemon.now.sh/graphql',
   });
 
