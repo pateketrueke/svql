@@ -1,4 +1,6 @@
-import { GraphQLClient, state as _state, conn as _conn, key as _key, read as _read } from './client';
+import {
+  GraphQLClient, state as _state, conn as _conn, key as _key, read as _read,
+} from './client';
 
 export { default as Status } from './components/Status.svelte';
 export { default as Failure } from './components/Failure.svelte';

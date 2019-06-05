@@ -19,14 +19,12 @@ test('it loads...', async t => {
   await t.expect(h1.textContent).contains('It works!');
 });
 
-test.page(url('/Pikachu'))
-('it can display pokemon info', async t => {
+test.page(url('/Pikachu'))('it can display pokemon info', async t => {
   await t.expect(Selector('h3').textContent).contains('Loading...');
   await t.wait(400).expect(Selector('h3').textContent).contains('025. Pikachu');
 });
 
-test.page(url('/ImNotExists'))
-('it can display failures', async t => {
+test.page(url('/ImNotExists'))('it can display failures', async t => {
   await t.expect(Selector('h3').textContent).contains('Loading...');
   await t.wait(400).expect(Selector('h3').textContent).contains('Pokémon not found!');
 });
