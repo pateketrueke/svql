@@ -14,7 +14,7 @@
     "build:esm": "bili src/main.js --minimal --format es --file-name svql.es.js",
     "build": "npm run build:browser && npm run build:node && npm run build:esm",
     "dev": "bili --format iife --minimal tests/*.test.js -d docs -w",
-    "serve": "live-server docs --quiet --no-browser --entry-file=index.html --proxy=/api:http://localhost:8081/api",
+    "serve": "live-server docs --quiet --no-browser --entry-file=index.html",
     "watch": "npm test -- -w",
     "lint": "eslint src tests",
     "test": "npm run test:e2e:ci",
