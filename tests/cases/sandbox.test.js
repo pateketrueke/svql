@@ -28,5 +28,5 @@ test.page(url('/Pikachu'))
 test.page(url('/ImNotExists'))
 ('it can display failures', async t => {
   await t.expect(Selector('h3').textContent).contains('Loading...');
-  await t.wait(400).expect(Selector('h3').textContent).contains('An error has ocurred');
+  await t.wait(400).expect(Selector('h3').textContent).contains('Pokémon not found!');
 });

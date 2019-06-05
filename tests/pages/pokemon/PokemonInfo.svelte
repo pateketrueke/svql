@@ -7,7 +7,7 @@
   });
 
   const GET_POKEMON_INFO = `
-    query($name: String!) {
+    query getPokemonInfo($name: String!) {
       pokemon(name: $name) {
         id name image number
       }

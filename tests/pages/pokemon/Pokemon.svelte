@@ -10,6 +10,7 @@
 
 <PokemonInfo name={fixedName} let:promise>
   <Out nostatus from={promise} let:data>
+    <h3 slot="failure">Pokémon not found!</h3>
     <h3>{data.pokemon.number}. {data.pokemon.name}</h3>
     <img alt={data.pokemon.name} src={data.pokemon.image} />
   </Out>

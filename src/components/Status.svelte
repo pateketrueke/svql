@@ -13,12 +13,12 @@
     <slot name="pending">
       <h3>{pending}</h3>
     </slot>
-  {:then}
-    <slot name="otherwise">
+  {:then result}
+    <slot name="otherwise" {result}>
       <h3>{otherwise}</h3>
     </slot>
   {:catch error}
-    <slot name="exception">
+    <slot name="exception" {error}>
       <Failure {label} {error} />
     </slot>
   {/await}

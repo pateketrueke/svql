@@ -4,15 +4,41 @@ import FetchQL from 'fetchql';
 export const conn = writable({});
 export const state = writable({});
 
+const RE_QUERY_NAME = /(^|\b)(query|mutation)\s*([^{( )}]+)?/i;
+const IS_FAILURE = Symbol('@@FAILURE');
+
 const seen = [];
 const keys = [];
+
+export function isFailure(value) {
+  return value === IS_FAILURE;
+}
+
+// https://stackoverflow.com/a/7616484
+export function hashCode(value) {
+  let hash = 0;
+  let chr;
+
+  if (value.length === 0) return hash;
+
+  for (let i = 0; i < value.length;) {
+    chr = value.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0; // eslint-disable-line
+    i += 1;
+  }
+
+  return hash;
+}
 
 export function read(gql) {
   return get(state)[key(gql)];
 }
 
 export function key(gql) {
-  if (/(^|\b)(query|mutation)\b/i.test(gql)) {
+  const matches = gql.match(RE_QUERY_NAME);
+
+  if (matches) {
     if (!seen.includes(gql)) {
       seen.push(gql);
     }
@@ -20,7 +46,7 @@ export function key(gql) {
     const offset = seen.indexOf(gql);
 
     if (!keys[offset]) {
-      keys[offset] = `$${offset}${Math.random().toString(36).substr(2)}`;
+      keys[offset] = matches[3] || hashCode(gql.replace(/\W/g, ''));
     }
 
     return keys[offset];
@@ -88,7 +114,8 @@ export class GraphQLClient {
 
           state.update(old => Object.assign(old, { [key(gql)]: promise }));
 
-          return promise;
+          // ensure this value passes isFailure() tests!
+          return promise.catch(() => IS_FAILURE);
         });
     }
 

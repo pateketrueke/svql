@@ -1,5 +1,5 @@
 <script>
-  import { state, key } from '../client';
+  import { isFailure, state, key } from '../client';
   import Failure from './Failure.svelte';
   import Status from './Status.svelte';
 
@@ -14,7 +14,7 @@
 </script>
 
 {#if !nostatus}
-  <slot name="status">
+  <slot name="status" {label} {pending} {otherwise} from={promise}>
     <Status {label} {pending} {otherwise} from={promise} />
   </slot>
 {/if}
@@ -25,9 +25,15 @@
       <h3>{loading}</h3>
     </slot>
   {:then data}
-    <slot {data} />
+    {#if isFailure(data)}
+      <slot name="failure" error={data}>
+        <Failure {label} error={data} />
+      </slot>
+    {:else}
+      <slot {data} />
+    {/if}
   {:catch error}
-    <slot name="failure" {label} {error}>
+    <slot name="failure" {error}>
       <Failure {label} {error} />
     </slot>
   {/await}
