@@ -1,4 +1,5 @@
 import App from './App.svelte';
-new App({
+
+new App({ // eslint-disable-line
   target: document.getElementById('app'),
 });

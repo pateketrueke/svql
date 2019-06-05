@@ -23,16 +23,12 @@ export function hashCode(value) {
 
   for (let i = 0; i < value.length;) {
     chr = value.charCodeAt(i);
-    hash = ((hash << 5) - hash) + chr;
+    hash = ((hash << 5) - hash) + chr; // eslint-disable-line
     hash |= 0; // eslint-disable-line
     i += 1;
   }
 
   return hash;
-}
-
-export function read(gql) {
-  return get(state)[key(gql)];
 }
 
 export function key(gql) {
@@ -55,6 +51,10 @@ export function key(gql) {
   return gql;
 }
 
+export function read(gql) {
+  return get(state)[key(gql)];
+}
+
 export class GraphQLClient {
   constructor(url, options) {
     if (typeof url === 'object') {
@@ -71,18 +71,18 @@ export class GraphQLClient {
       onStart(x) { conn.set({ loading: x > 0 }); },
       onEnd(x) { conn.set({ loading: x > 0 }); },
       interceptors: [{
-        response(resp) {
-          if (resp.status !== 200) {
-            return resp.json().then(result => {
+        response(_resp) {
+          if (_resp.status !== 200) {
+            return _resp.json().then(result => {
               if (!result.errors) {
-                throw new Error(`Unexpected response, given '${resp.status}'`);
+                throw new Error(`Unexpected _response, given '${_resp.status}'`);
               }
 
               throw result.errors;
             });
           }
 
-          return resp;
+          return _resp;
         },
       }],
       ...options,
