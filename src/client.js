@@ -63,13 +63,15 @@ export class GraphQLClient {
     });
 
     function resp(gql, result, callback) {
-      const retval = typeof callback === 'function' && callback(result.data);
+      return Promise.resolve()
+        .then(() => typeof callback === 'function' && callback(result.data))
+        .then(retval => {
+          if (!retval && result.data) {
+            state.update(old => Object.assign(old, { [key(gql)]: result.data }));
+          }
 
-      if (!retval && result.data) {
-        state.update(old => Object.assign(old, { [key(gql)]: result.data }));
-      }
-
-      return retval || result.data;
+          return retval || result.data;
+        });
     }
 
     function query(gql, data, callback) {
@@ -78,13 +80,16 @@ export class GraphQLClient {
         data = undefined;
       }
 
-      const promise = client
-        .query({ query: gql, variables: data })
-        .then(result => resp(gql, result, callback));
+      return Promise.resolve()
+        .then(() => {
+          const promise = client
+            .query({ query: gql, variables: data })
+            .then(result => resp(gql, result, callback));
 
-      state.update(old => Object.assign(old, { [key(gql)]: promise }));
+          state.update(old => Object.assign(old, { [key(gql)]: promise }));
 
-      return promise;
+          return promise;
+        });
     }
 
     function mutation(gql, cb = done => done()) {
