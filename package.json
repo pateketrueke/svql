@@ -25,6 +25,12 @@
   },
   "author": "Alvaro Cabrera <pateketrueke@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "svelte",
+    "client",
+    "fetchql",
+    "graphql"
+  ],
   "devDependencies": {
     "bili": "^4.4.0",
     "eslint": "^5.15.1",
