@@ -40,7 +40,7 @@
           break;
         }
 
-        node = nodes[i]
+        node = nodes[i];
       }
 
       if (node) {
