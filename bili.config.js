@@ -1,5 +1,5 @@
 module.exports = {
   plugins: {
-    svelte: true
-  }
+    svelte: true,
+  },
 };
