@@ -1,23 +1,34 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
 
-const production = !process.env.ROLLUP_WATCH;
+const isDev = process.env.ROLLUP_WATCH;
+const isProd = process.env.NODE_ENV === 'production';
+
+function bundle(file, format) {
+  return {
+    sourcemap: false,
+    name: 'svql',
+    format,
+    file,
+  };
+}
 
 export default {
-  input: 'tests/main.js',
-  output: {
-    sourcemap: false,
-    format: 'iife',
-    name: 'svql',
-    file: 'docs/test.js',
-  },
+  input: isProd ? 'src/main.js' : 'tests/main.js',
+  output: isProd ? [
+    bundle('dist/svql.js', 'cjs'),
+    bundle('dist/svql.es.js', 'es'),
+    bundle('dist/svql.min.js', 'umd'),
+  ] : bundle('docs/test.js', 'iife'),
+  external: isProd ? ['svelte', 'svelte/store', 'svelte/internal'] : [],
   plugins: [
     svelte({
-      // enable run-time checks when not in production
-      dev: !production,
+      dev: isDev,
     }),
     resolve(),
     commonjs(),
+    isProd && terser(),
   ],
 };

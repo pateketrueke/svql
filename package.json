@@ -2,16 +2,20 @@
   "name": "svql",
   "version": "0.0.3",
   "description": "FetchQL wrapper for Svelte 3",
+  "main": "dist/svql.js",
   "svelte": "src/main.js",
-  "main": "src/main.js",
+  "module": "dist/svql.es.js",
+  "browser": "dist/svql.min.js",
   "files": [
-    "src/**"
+    "src/**",
+    "dist/*"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "npm run build -- -w",
+    "dev": "rollup -c -w",
+    "build": "NODE_ENV=production rollup -c",
     "serve": "live-server docs --quiet --no-browser --entry-file=index.html",
     "lint": "eslint src tests",
+    "prepublishOnly": "npm run test && npm run build",
     "test:e2e": "BASE_URL=http://localhost:8080 testcafe",
     "test:live": "BASE_URL=http://localhost:8080 testcafe-live",
     "test:e2e:ci": "npm run test:e2e -- --ports 9505,9506 remote:1"
@@ -37,6 +41,7 @@
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
     "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^5.0.0",
     "svelte": "^3.4.4",
     "svero": "^0.5.0",
     "testcafe": "^1.1.0"
