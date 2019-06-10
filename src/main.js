@@ -1,5 +1,5 @@
 import {
-  GraphQLClient, state as _state, conn as _conn, key as _key, read as _read,
+  GraphQLClient, query as _query, mutation as _mutation, state as _state, conn as _conn, key as _key, read as _read,
 } from './client';
 
 export { default as Status } from './components/Status.svelte';
@@ -7,21 +7,28 @@ export { default as Failure } from './components/Failure.svelte';
 export { default as In } from './components/In.svelte';
 export { default as Out } from './components/Out.svelte';
 
-function undef() {
-  throw new Error('setupClient() must be called before!');
+let _client;
+
+// singleton methods/accessors
+function call(fn, name) {
+  return (...args) => {
+    if (!_client) {
+      throw new Error(`setupClient() must be called before ${name}()!`);
+    }
+
+    return fn(_client.client, ...args);
+  };
 }
 
 // shared stores
 export const state = _state;
 export const conn = _conn;
 
-// accessors
-export const read = _read;
-export const key = _key;
-
-// methods
-export let query = undef;
-export let mutation = undef;
+// accessors/methods
+export const key = call(_key, 'key');
+export const read = call(_read, 'read');
+export const query = call(_query, 'query');
+export const mutation = call(_mutation, 'mutation');
 
 export function saveSession(values, sessionKey) {
   localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
@@ -50,8 +57,5 @@ export function useClient(options, sessionKey) {
 }
 
 export function setupClient(options, sessionKey) {
-  const client = useClient(options, sessionKey);
-
-  query = client.query;
-  mutation = client.mutation;
+  _client = useClient(options, sessionKey);
 }

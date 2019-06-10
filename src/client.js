@@ -31,7 +31,10 @@ export function hashCode(value) {
   return hash;
 }
 
-export function key(gql) {
+export function key(c, gql) {
+  // group-by generic identifier per-client connection!
+  c._id = c._id || Math.random().toString(36).substr(2);
+
   const matches = gql.match(RE_QUERY_NAME);
 
   if (matches) {
@@ -45,14 +48,49 @@ export function key(gql) {
       keys[offset] = matches[3] || hashCode(gql.replace(/\W/g, ''));
     }
 
-    return keys[offset];
+    return `${c._id}.${keys[offset]}`;
   }
 
-  return gql;
+  return `${c._id}.${gql}`;
 }
 
-export function read(gql) {
-  return get(state)[key(gql)];
+export function read(c, gql) {
+  return get(state)[key(c, gql)];
+}
+
+export function resp(c, gql, result, callback) {
+  return Promise.resolve()
+    .then(() => typeof callback === 'function' && callback(result.data))
+    .then(retval => {
+      if (!retval && result.data) {
+        state.update(old => Object.assign(old, { [key(c, gql)]: result.data }));
+      }
+
+      return retval || result.data;
+    });
+}
+
+export function query(c, gql, data, callback) {
+  if (typeof data === 'function') {
+    callback = data;
+    data = undefined;
+  }
+
+  return Promise.resolve()
+    .then(() => {
+      const promise = c
+        .query({ query: gql, variables: data })
+        .then(result => resp(c, gql, result, callback));
+
+      state.update(old => Object.assign(old, { [key(c, gql)]: promise }));
+
+      // ensure this value passes isFailure() tests!
+      return promise.catch(() => IS_FAILURE);
+    });
+}
+
+export function mutation(c, gql, cb = done => done()) {
+  return function call$(...args) { cb((data, callback) => query(c, gql, data, callback)).apply(this, args); };
 }
 
 export class GraphQLClient {
@@ -66,7 +104,7 @@ export class GraphQLClient {
       throw new Error(`Invalid url, given '${options.url}'`);
     }
 
-    const client = new FetchQL({
+    this.client = new FetchQL({
       url,
       onStart(x) { conn.set({ loading: x > 0 }); },
       onEnd(x) { conn.set({ loading: x > 0 }); },
@@ -88,44 +126,10 @@ export class GraphQLClient {
       ...options,
     });
 
-    function resp(gql, result, callback) {
-      return Promise.resolve()
-        .then(() => typeof callback === 'function' && callback(result.data))
-        .then(retval => {
-          if (!retval && result.data) {
-            state.update(old => Object.assign(old, { [key(gql)]: result.data }));
-          }
-
-          return retval || result.data;
-        });
-    }
-
-    function query(gql, data, callback) {
-      if (typeof data === 'function') {
-        callback = data;
-        data = undefined;
-      }
-
-      return Promise.resolve()
-        .then(() => {
-          const promise = client
-            .query({ query: gql, variables: data })
-            .then(result => resp(gql, result, callback));
-
-          state.update(old => Object.assign(old, { [key(gql)]: promise }));
-
-          // ensure this value passes isFailure() tests!
-          return promise.catch(() => IS_FAILURE);
-        });
-    }
-
-    function mutation(gql, cb = done => done()) {
-      return function call$(...args) { cb((data, callback) => query(gql, data, callback)).apply(this, args); };
-    }
-
-    return {
-      query,
-      mutation,
-    };
+    // overload methods/accesors
+    this.key = (...args) => key(this.client, ...args);
+    this.read = (...args) => read(this.client, ...args);
+    this.query = (...args) => query(this.client, ...args);
+    this.mutation = (...args) => mutation(this.client, ...args);
   }
 }
