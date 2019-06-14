@@ -1,6 +1,5 @@
 <script>
   import Failure from './Failure.svelte';
-  import { state } from '../client';
 
   export let from = null;
   export let label = 'An error has ocurred';

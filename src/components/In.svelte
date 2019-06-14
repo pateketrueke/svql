@@ -1,6 +1,6 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
-  import { conn } from '../client';
+  import { conn$ } from '../client';
 
   let ref = null;
   let cssClass = '';
@@ -77,7 +77,7 @@
 <svelte:window on:keyup={checkEscape} />
 
 <div class={fixedClass} on:click={closeMe} bind:this={ref}>
-  <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn.loading}>
+  <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn$.loading}>
     <slot />
   </form>
 </div>

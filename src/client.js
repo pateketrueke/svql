@@ -1,8 +1,8 @@
 import { writable, get } from 'svelte/store';
 import FetchQL from 'fetchql';
 
-export const conn = writable({});
-export const state = writable({});
+export const conn$ = writable({});
+export const state$ = writable({});
 
 const RE_QUERY_NAME = /(^|\b)(query|mutation)\s*([^{( )}]+)?/i;
 const IS_FAILURE = Symbol('@@FAILURE');
@@ -55,7 +55,7 @@ export function key(c, gql) {
 }
 
 export function read(c, gql) {
-  return get(state)[key(c, gql)];
+  return get(state$)[key(c, gql)];
 }
 
 export function resp(c, gql, result, callback) {
@@ -63,7 +63,7 @@ export function resp(c, gql, result, callback) {
     .then(() => typeof callback === 'function' && callback(result.data))
     .then(retval => {
       if (!retval && result.data) {
-        state.update(old => Object.assign(old, { [key(c, gql)]: result.data }));
+        state$.update(old => Object.assign(old, { [key(c, gql)]: result.data }));
       }
 
       return retval || result.data;
@@ -82,7 +82,7 @@ export function query(c, gql, data, callback) {
         .query({ query: gql, variables: data })
         .then(result => resp(c, gql, result, callback));
 
-      state.update(old => Object.assign(old, { [key(c, gql)]: promise }));
+      state$.update(old => Object.assign(old, { [key(c, gql)]: promise }));
 
       // ensure this value passes isFailure() tests!
       return promise.catch(() => IS_FAILURE);
@@ -92,6 +92,8 @@ export function query(c, gql, data, callback) {
 export function mutation(c, gql, cb = done => done()) {
   return function call$(...args) { cb((data, callback) => query(c, gql, data, callback)).apply(this, args); };
 }
+
+let _client;
 
 export class GraphQLClient {
   constructor(url, options) {
@@ -106,8 +108,8 @@ export class GraphQLClient {
 
     this.client = new FetchQL({
       url,
-      onStart(x) { conn.set({ loading: x > 0 }); },
-      onEnd(x) { conn.set({ loading: x > 0 }); },
+      onStart(x) { conn$.set({ loading: x > 0 }); },
+      onEnd(x) { conn$.set({ loading: x > 0 }); },
       interceptors: [{
         response(_resp) {
           if (_resp.status !== 200) {
@@ -132,4 +134,24 @@ export class GraphQLClient {
     this.query = (...args) => query(this.client, ...args);
     this.mutation = (...args) => mutation(this.client, ...args);
   }
+
+  static setClient(client) {
+    _client = client;
+  }
 }
+
+// singleton methods/accessors
+function call(fn, name) {
+  return (...args) => {
+    if (!(_client && _client.client)) {
+      throw new Error(`setupClient() must be called before ${name}()!`);
+    }
+
+    return fn(_client.client, ...args);
+  };
+}
+
+export const key$ = call(key);
+export const read$ = call(read);
+export const query$ = call(query);
+export const mutation$ = call(mutation);

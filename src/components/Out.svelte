@@ -1,5 +1,5 @@
 <script>
-  import { isFailure, state, key } from '../client';
+  import { isFailure, state$, key$ } from '../client';
   import Failure from './Failure.svelte';
   import Status from './Status.svelte';
 
@@ -10,7 +10,7 @@
   export let loading = 'Loading...';
   export let nostatus = false;
 
-  $: promise = typeof from === 'string' ? $state[key(from)] : from;
+  $: promise = typeof from === 'string' ? $state$[key$(from)] : from;
 </script>
 
 {#if !nostatus}
