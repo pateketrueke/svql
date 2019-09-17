@@ -20,6 +20,10 @@
     "test:live": "BASE_URL=http://localhost:8080 testcafe-live",
     "test:e2e:ci": "npm run test:e2e -- --ports 9505,9506 remote:1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pateketrueke/svql.git"
+  },
   "author": "Alvaro Cabrera <pateketrueke@gmail.com>",
   "license": "MIT",
   "keywords": [
@@ -46,6 +50,15 @@
     "rollup-plugin-terser": "^5.0.0",
     "svelte": "^3.4.4",
     "svero": "^1.0.0",
+    "ws": ">=3.3.1",
+    "express": ">=3.11.0",
+    "useragent": ">=2.1.13",
+    "tough-cookie": ">=2.3.3",
+    "ejs": ">=2.5.5",
+    "qs": ">=1.0.0",
+    "uglify-js": ">=2.6.0",
+    "send": ">=0.11.1",
+    "moment": ">=2.19.3",
     "testcafe": "^15.1.317922"
   },
   "dependencies": {
