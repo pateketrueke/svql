@@ -4,7 +4,7 @@
 </script>
 
 <Router>
-  <Route path="*">
+  <Route exact path="/">
     <h1>It works!</h1>
   </Route>
   <Route path="/:name" component={Pokemon} />
