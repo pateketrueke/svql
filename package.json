@@ -32,19 +32,21 @@
     "svelte": "3.x"
   },
   "devDependencies": {
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-svelte3": "^1.2.3",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "eslint-utils": ">=1.4.1",
     "live-server": "^1.2.1",
+    "lodash": ">=4.17.13",
     "rollup": "^1.14.5",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
     "rollup-plugin-svelte": "^5.0.3",
     "rollup-plugin-terser": "^5.0.0",
     "svelte": "^3.4.4",
-    "svero": "^0.5.0",
-    "testcafe": "^1.1.0"
+    "svero": "^1.0.0",
+    "testcafe": "^15.1.317922"
   },
   "dependencies": {
     "fetchql": "^3.0.0"
