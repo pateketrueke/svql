@@ -85,7 +85,10 @@ export function query(c, gql, data, callback) {
       state$.update(old => Object.assign(old, { [key(c, gql)]: promise }));
 
       // ensure this value passes isFailure() tests!
-      return promise.catch(() => IS_FAILURE);
+      return promise.catch(() => {
+        conn$.set({ loading: null });
+        return IS_FAILURE;
+      });
     });
 }
 
