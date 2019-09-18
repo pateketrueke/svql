@@ -3,7 +3,7 @@
   export let error = null;
 
   function fixedStack(e) {
-    return (e.stack || e.toString()).replace(/.*Error:(.+?)$/m, '$1');
+    return (e.stack || e.toString()).replace(/.*Error:(.+?)$/m, '$1').trim();
   }
 
   function isError(e) {
@@ -22,7 +22,7 @@
         {#if e.description && e.message}
           <details>
             <summary>{e.message}</summary>
-            <p>{e.description}</p>
+            <pre>{e.description}</pre>
             {#if e.stack}<pre>{fixedStack(e)}</pre>{/if}
           </details>
         {:else}

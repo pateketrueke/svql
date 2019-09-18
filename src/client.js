@@ -11,7 +11,7 @@ const seen = [];
 const keys = [];
 
 export function isFailure(value) {
-  return value === IS_FAILURE;
+  return value instanceof Error && value[IS_FAILURE];
 }
 
 // https://stackoverflow.com/a/7616484
@@ -85,9 +85,13 @@ export function query(c, gql, data, callback) {
       state$.update(old => Object.assign(old, { [key(c, gql)]: promise }));
 
       // ensure this value passes isFailure() tests!
-      return promise.catch(() => {
+      return promise.catch(e => {
         conn$.set({ loading: null });
-        return IS_FAILURE;
+
+        // flag error for later
+        e[IS_FAILURE] = true;
+
+        throw e;
       });
     });
 }

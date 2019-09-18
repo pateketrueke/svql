@@ -1,5 +1,6 @@
 <script>
   import Failure from './Failure.svelte';
+  import { isFailure } from '../client';
 
   let cssClass = '';
   let fixedClass = '';
