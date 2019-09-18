@@ -11,6 +11,7 @@ services:
   - docker
 
 before_script:
+  - npm run lint
   - make build
 
 script:

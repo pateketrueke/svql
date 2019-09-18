@@ -38,7 +38,7 @@
   "devDependencies": {
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-svelte3": "^2.7.3",
     "eslint-utils": ">=1.4.1",
     "rollup": "^1.14.5",
