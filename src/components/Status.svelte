@@ -25,8 +25,9 @@
 
 <style>
   .fixed {
-    background-color: inherit;
+    background-color: white;
     position: fixed;
+    overflow: auto;
     padding: 10px;
     width: 100%;
     z-index: 1;

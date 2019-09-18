@@ -89,13 +89,13 @@ export function query(c, gql, data, callback) {
         conn$.set({ loading: null });
 
         // flag and rethrow error for later
-        if (e instanceof Error) {
+        if (e instanceof Error || Array.isArray(e)) {
           e[IS_FAILURE] = true;
 
           throw e;
         }
 
-        return e || IS_FAILURE;
+        return IS_FAILURE;
       });
     });
 }
