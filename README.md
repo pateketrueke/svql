@@ -108,8 +108,11 @@ Available props:
 
 - `{from}` &mdash; Promise-like value to handle status changes
 - `{label}` &mdash; Label used for `{:catch error}` handling with `<Failure />`
+- `{fixed}` &mdash; Setup `<Status />` container as fixed, positioned at `left:0;bottom:0` by default
 - `{pending}` &mdash; Message while the promise is being resolved...
 - `{otherwise}` &mdash; Message while once promise has resolved successfully
+
+> With `fixed` you can provide offsets, e.g. `<Status fixed="{{ top: '10vh' }}" />`
 
 Available slots:
 

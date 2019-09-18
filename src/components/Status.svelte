@@ -3,6 +3,7 @@
 
   let cssClass = '';
   let fixedClass = '';
+  let fixedStyle = '';
 
   export let from = null;
   export let label = 'An error has ocurred';
@@ -13,7 +14,13 @@
   export let className = '';
   export { cssClass as class };
 
-  $: fixedClass = `${fixed ? 'fixed' : ''} ${className}`;
+  // apply fixed-class and/or custom properly...
+  $: fixedClass = [fixed ? 'fixed' : '', className].filter(x => x.length).join(' ');
+
+  // build css-props based on fixed ones...
+  $: fixedStyle = fixed && typeof fixed === 'object'
+    ? Object.keys(fixed).reduce((p, k) => p.concat(`${k}:${fixed[k]}`), []).join(';')
+    : '';
 </script>
 
 <style>
@@ -22,14 +29,14 @@
     position: fixed;
     padding: 10px;
     width: 100%;
-    left: 0;
-    bottom: 0;
     z-index: 1;
+    bottom: 0;
+    left: 0;
   }
 </style>
 
 {#if from}
-  <div class={fixedClass}>
+  <div style={fixedStyle} class={fixedClass}>
     {#await from}
       <slot name="pending">
         <h3>{pending}</h3>
