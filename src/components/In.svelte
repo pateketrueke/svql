@@ -44,7 +44,7 @@
       }
 
       if (node) {
-        node.focus();
+        setTimeout(() => node.focus(), 0);
       }
     }
   });
