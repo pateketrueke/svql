@@ -115,7 +115,7 @@ export class GraphQLClient {
           if (_resp.status !== 200) {
             return _resp.json().then(result => {
               if (!result.errors) {
-                throw new Error(`Unexpected _response, given '${_resp.status}'`);
+                throw new Error(`Unexpected response, given '${_resp.status}'`);
               }
 
               throw result.errors;
