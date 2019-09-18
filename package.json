@@ -49,7 +49,7 @@
     "sirv-cli": "^0.4.4",
     "svelte": "^3.4.4",
     "svero": "^1.0.0",
-    "testcafe": "^15.1.317922"
+    "testcafe": "^1.5.0"
   },
   "dependencies": {
     "fetchql": "^3.0.0"
