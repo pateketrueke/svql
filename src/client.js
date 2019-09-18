@@ -11,7 +11,7 @@ const seen = [];
 const keys = [];
 
 export function isFailure(value) {
-  return value instanceof Error && value[IS_FAILURE];
+  return value === IS_FAILURE || (value instanceof Error && value[IS_FAILURE]);
 }
 
 // https://stackoverflow.com/a/7616484
@@ -88,10 +88,14 @@ export function query(c, gql, data, callback) {
       return promise.catch(e => {
         conn$.set({ loading: null });
 
-        // flag error for later
-        e[IS_FAILURE] = true;
+        // flag and rethrow error for later
+        if (e instanceof Error) {
+          e[IS_FAILURE] = true;
 
-        throw e;
+          throw e;
+        }
+
+        return e || IS_FAILURE;
       });
     });
 }
