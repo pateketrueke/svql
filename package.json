@@ -13,11 +13,13 @@
   ],
   "scripts": {
     "dev": "rollup -c -w",
-    "build": "NODE_ENV=production rollup -c",
+    "build": "rollup -c",
     "serve": "sirv start docs --dev --quiet --single --port 8080",
     "lint": "eslint src tests",
-    "prepublishOnly": "npm run test && npm run build",
-    "test:e2e": "BASE_URL=http://localhost:8080 testcafe",
+    "prepublishOnly": "npm run test && NODE_ENV=production npm run build",
+    "pretest": "NODE_ENV=test npm run build",
+    "test": "npm run test:e2e -- -a 'npm run serve' tests/cases",
+    "test:e2e": "BASE_URL=http://localhost:8080 testcafe ${BROWSER:-chrome}",
     "test:e2e:ci": "npm run test:e2e -- --ports 9505,9506 remote:1"
   },
   "repository": {
