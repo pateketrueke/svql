@@ -69,6 +69,11 @@
     box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
   }
 
+  .loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
   .inline {
     display: inline-block;
   }
