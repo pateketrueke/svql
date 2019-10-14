@@ -17,11 +17,7 @@ export const read = read$;
 export const query = query$;
 export const mutation = mutation$;
 
-export function saveSession(values, sessionKey) {
-  localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
-}
-
-export function useClient(options, sessionKey) {
+function _getJSON(sessionKey) {
   let _session;
 
   try {
@@ -30,6 +26,22 @@ export function useClient(options, sessionKey) {
     _session = {};
   }
 
+  return _session;
+}
+
+export function saveSession(values, sessionKey) {
+  localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
+}
+
+export function useToken(value, sessionKey) {
+  localStorage.setItem(sessionKey || 'session', JSON.stringify({
+    ..._getJSON(sessionKey),
+    token: value,
+  }));
+}
+
+export function useClient(options, sessionKey) {
+  const _session = _getJSON(sessionKey);
   const _options = options || {};
   const _headers = { ..._options.headers };
 
