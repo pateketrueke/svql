@@ -156,8 +156,11 @@ Available props:
 
 - `setupClient(options[, key])` &mdash; Configure a `FetchQL` singleton with the given `options`, `key` is used for session loading
 - `useClient(options[, key])` &mdash; Returns a `FetchQL` instance with the given `options`, `key` is used for session loading
+- `useToken(value[, key])` &mdash; Update the session-token used for Bearer authentication, `key` is used for session loading
 - `saveSession(data[, key])` &mdash; Serializes any given value as the current session, it MUST be a plain object or null
 - `read(gql|key)` &mdash; Retrieve current value from `state` by key, a shorthand for `$state[key]` values
 - `key(gql)` &mdash; Returns a valid `key` from GQL-strings, otherwise the same value is returned
 - `$state` &mdash; Store with all resolved state by the `fetchql` singleton
 - `$conn` &mdash; Store with connection details during `fetchql` requests
+
+> `sqvl` use **Bearer authentication** by default, so any token found in the session will be sent forth-and-back.
