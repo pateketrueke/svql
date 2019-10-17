@@ -1,5 +1,8 @@
 <script>
-  import { Router, Route, Link } from 'svero';
+  import {
+    Router, Route, Link, router,
+  } from 'yrv';
+
   import { In, Status } from '../src/main';
   import { Pokemon } from './pages/pokemon';
 
@@ -15,8 +18,8 @@
   function load() {
     promise = new Promise((ok, err) => {
       setTimeout(() => {
-        if (checked) err(-1);
-        else ok(42)
+        if (checked) err(new Error('-1'));
+        else ok(42);
       }, value || 1000);
     });
   }
@@ -38,13 +41,15 @@
   }
 </style>
 
+{$router.path}
+
 <Router>
   <Route exact path="/">
     <h1>It works!</h1>
     <Link href="/tests">Go to test-page</Link>
   </Route>
   <Route path="/:name" component={Pokemon} />
-  <Route exact path="/tests">
+  <Route path="/tests">
     <button on:click={toggle}>Open modal</button>
     {#if show}
       <In modal autofocus on:cancel={toggle}>

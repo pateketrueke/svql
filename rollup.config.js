@@ -16,7 +16,7 @@ function bundle(file, format) {
 }
 
 export default {
-  input: isProd ? 'src/main.js' : 'tests/main.js',
+  input: isProd ? 'src/main.js' : 'e2e/main.js',
   output: isProd ? [
     bundle('dist/svql.js', 'cjs'),
     bundle('dist/svql.es.js', 'es'),

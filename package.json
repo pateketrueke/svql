@@ -15,10 +15,10 @@
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "serve": "sirv start docs --dev --quiet --single --port 8080",
-    "lint": "eslint src tests",
+    "lint": "eslint src e2e",
     "prepublishOnly": "NODE_ENV=production npm run build",
     "pretest": "NODE_ENV=test npm run build",
-    "test": "npm run test:e2e -- ${BROWSER:-chrome:headless} -a 'npm run serve' tests/cases",
+    "test": "npm run test:e2e -- ${BROWSER:-chrome:headless} -a 'npm run serve' e2e/cases",
     "test:e2e": "BASE_URL=http://localhost:8080 testcafe",
     "test:e2e:ci": "npm run test:e2e -- --ports 9505,9506 remote:1"
   },
@@ -50,8 +50,8 @@
     "rollup-plugin-terser": "^5.0.0",
     "sirv-cli": "^0.4.4",
     "svelte": "^3.4.4",
-    "svero": "^1.0.0",
-    "testcafe": "^1.5.0"
+    "testcafe": "^1.5.0",
+    "yrv": "0.0.2"
   },
   "dependencies": {
     "fetchql": "^3.0.0"
