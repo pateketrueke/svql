@@ -66,6 +66,8 @@ export function resp(c, gql, result, callback) {
         state$.update(old => Object.assign(old, { [key(c, gql)]: result.data }));
       }
 
+      conn$.set({ loading: false });
+
       return retval || result.data;
     });
 }
@@ -75,6 +77,8 @@ export function query(c, gql, data, callback, onFailure) {
     callback = data;
     data = undefined;
   }
+
+  conn$.set({ loading: true, failure: null });
 
   return Promise.resolve()
     .then(() => {
@@ -86,7 +90,7 @@ export function query(c, gql, data, callback, onFailure) {
 
       // ensure this value passes isFailure() tests!
       return promise.catch(e => {
-        conn$.set({ loading: null });
+        conn$.set({ loading: null, failure: e });
 
         // make sure we can rollback...
         if (typeof onFailure === 'function') onFailure(e);
