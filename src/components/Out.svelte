@@ -9,13 +9,14 @@
   export let otherwise = 'Done';
   export let loading = 'Loading...';
   export let nostatus = false;
+  export let nodebug = false;
 
   $: promise = typeof from === 'string' ? $state$[key$(from)] : from;
 </script>
 
 {#if !nostatus}
   <slot name="status" {label} {pending} {otherwise} from={promise}>
-    <Status {label} {pending} {otherwise} from={promise} />
+    <Status {label} {pending} {otherwise} {nodebug} from={promise} />
   </slot>
 {/if}
 
@@ -27,14 +28,14 @@
   {:then data}
     {#if isFailure(data)}
       <slot name="failure" error={data}>
-        <Failure {label} error={data} />
+        <Failure {nodebug} {label} error={data} />
       </slot>
     {:else}
       <slot {data} />
     {/if}
   {:catch error}
     <slot name="failure" {error}>
-      <Failure {label} {error} />
+      <Failure {nodebug} {label} {error} />
     </slot>
   {/await}
 {/if}
