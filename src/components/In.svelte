@@ -69,7 +69,7 @@
   }
 
   .loading {
-    opacity: .5;
+    opacity: .3;
     pointer-events: none;
   }
 
