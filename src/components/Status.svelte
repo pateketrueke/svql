@@ -37,7 +37,7 @@
 </style>
 
 {#if from}
-  <div style={fixedStyle} class={fixedClass}>
+  <div style={fixedStyle} class={fixedClass} role="status">
     {#await from}
       <slot name="pending">
         <h3>{pending}</h3>

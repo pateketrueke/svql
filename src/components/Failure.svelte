@@ -11,24 +11,26 @@
   }
 </script>
 
-{#if isError(error)}
-  <h3>{label || error.description || error.message || error.toString()}</h3>
-  {#if error.stack}<pre>{fixedStack(error)}</pre>{/if}
-{:else}
-  <h3>{label || 'An error has ocurred.'}</h3>
-  {#if Array.isArray(error)}<ul>
-    {#each error as e}
-      <li>
-        {#if e.description && e.message}
-          <details>
-            <summary>{e.message}</summary>
-            <pre>{e.description}</pre>
-            {#if e.stack}<pre>{fixedStack(e)}</pre>{/if}
-          </details>
-        {:else}
-          <pre>{fixedStack(e)}</pre>
-        {/if}
-      </li>
-    {/each}
-  </ul>{/if}
-{/if}
+<div role="alert">
+  {#if isError(error)}
+    <h3>{label || error.description || error.message || error.toString()}</h3>
+    {#if error.stack}<pre>{fixedStack(error)}</pre>{/if}
+  {:else}
+    <h3>{label || 'An error has ocurred.'}</h3>
+    {#if Array.isArray(error)}<ul>
+      {#each error as e}
+        <li>
+          {#if e.description && e.message}
+            <details>
+              <summary>{e.message}</summary>
+              <pre>{e.description}</pre>
+              {#if e.stack}<pre>{fixedStack(e)}</pre>{/if}
+            </details>
+          {:else}
+            <pre>{fixedStack(e)}</pre>
+          {/if}
+        </li>
+      {/each}
+    </ul>{/if}
+  {/if}
+</div>

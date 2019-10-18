@@ -81,7 +81,7 @@
 
 <svelte:window on:keyup={checkEscape} />
 
-<div class={fixedClass} on:click={closeMe} bind:this={ref}>
+<div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
   <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn$.loading}>
     <slot />
   </form>
