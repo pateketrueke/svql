@@ -58,9 +58,13 @@ export function read(c, gql) {
   return get(state$)[key(c, gql)];
 }
 
-export function resp(c, gql, result, callback) {
+export function resp(c, gql, result, callback, onFailure) {
   return Promise.resolve()
     .then(() => typeof callback === 'function' && callback(result.data))
+    .catch(e => {
+      if (typeof onFailure === 'function') onFailure(e);
+      throw e;
+    })
     .then(retval => {
       if (!retval && result.data) {
         state$.update(old => Object.assign(old, { [key(c, gql)]: result.data }));
@@ -70,7 +74,7 @@ export function resp(c, gql, result, callback) {
     });
 }
 
-export function query(c, gql, data, callback) {
+export function query(c, gql, data, callback, onFailure) {
   if (typeof data === 'function') {
     callback = data;
     data = undefined;
@@ -80,7 +84,7 @@ export function query(c, gql, data, callback) {
     .then(() => {
       const promise = c
         .query({ query: gql, variables: data })
-        .then(result => resp(c, gql, result, callback));
+        .then(result => resp(c, gql, result, callback, onFailure));
 
       state$.update(old => Object.assign(old, { [key(c, gql)]: promise }));
 
@@ -100,8 +104,8 @@ export function query(c, gql, data, callback) {
     });
 }
 
-export function mutation(c, gql, cb = done => done()) {
-  return function call$(...args) { cb((data, callback) => query(c, gql, data, callback)).apply(this, args); };
+export function mutation(c, gql, cb = done => done(), onErr) {
+  return function call$(...args) { cb((data, callback) => query(c, gql, data, callback, onErr)).apply(this, args); };
 }
 
 let _client;
