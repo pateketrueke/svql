@@ -29,7 +29,7 @@
   }
 
   onMount(() => {
-    if (autofocus) {
+    if (ref && autofocus) {
       const nodes = ref.querySelectorAll('input,button,textarea');
 
       let node;
@@ -63,8 +63,7 @@
     background-color: rgba(0, 0, 0, .3);
   }
 
-  .overlay > form {
-    padding: 10px;
+  .wrapper {
     background-color: white;
     box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
   }
@@ -77,12 +76,20 @@
   .inline {
     display: inline-block;
   }
+
+  form {
+    padding: 10px;
+  }
 </style>
 
 <svelte:window on:keyup={checkEscape} />
 
 <div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
-  <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn$.loading}>
-    <slot />
-  </form>
+  <div class="wrapper">
+    <slot name="before" />
+    <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn$.loading}>
+      <slot />
+    </form>
+    <slot name="after" />
+  </div>
 </div>
