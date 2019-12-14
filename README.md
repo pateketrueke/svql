@@ -1,6 +1,6 @@
-> The _easiest_ way to consume GraphQL APIs
+> The _easiest_ way to consume GraphQL APIs in Svelte3
 >
-> [![Build Status](https://api.travis-ci.org/pateketrueke/svql.svg?branch=master)](https://travis-ci.org/pateketrueke/svql)
+> ![Build status](https://github.com/pateketrueke/svql/workflows/build/badge.svg)
 > [![NPM version](https://badge.fury.io/js/svql.svg)](http://badge.fury.io/js/svql)
 > [![Known Vulnerabilities](https://snyk.io/test/npm/svql/badge.svg)](https://snyk.io/test/npm/svql)
 

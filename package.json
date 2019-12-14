@@ -17,10 +17,9 @@
     "serve": "sirv start docs --dev --quiet --single --port 8080",
     "lint": "eslint src e2e",
     "prepublishOnly": "NODE_ENV=production npm run build",
-    "pretest": "NODE_ENV=test npm run build",
+    "pretest": "npm run lint && NODE_ENV=test npm run build",
     "test": "npm run test:e2e -- ${BROWSER:-chrome:headless} -a 'npm run serve' e2e/cases",
-    "test:e2e": "BASE_URL=http://localhost:8080 testcafe",
-    "test:e2e:ci": "npm run test:e2e -- --ports 9505,9506 remote:1"
+    "test:e2e": "BASE_URL=http://localhost:8080 testcafe"
   },
   "repository": {
     "type": "git",
@@ -30,9 +29,10 @@
   "license": "MIT",
   "keywords": [
     "svelte",
-    "client",
     "fetchql",
-    "graphql"
+    "graphql",
+    "svelte-graphql",
+    "svelte3-graphql"
   ],
   "peerDependencies": {
     "svelte": "3.x"
@@ -47,11 +47,12 @@
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.1",
     "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^5.0.0",
+    "rollup-plugin-terser": "^5.1.3",
+    "serialize-javascript": ">=2.1.1",
     "sirv-cli": "^0.4.4",
     "svelte": "^3.4.4",
     "testcafe": "^1.5.0",
-    "yrv": "0.0.2"
+    "yrv": "0.0.15"
   },
   "dependencies": {
     "fetchql": "^3.0.0"
