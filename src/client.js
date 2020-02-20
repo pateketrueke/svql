@@ -171,7 +171,7 @@ function call(fn, name) {
   };
 }
 
-export const key$ = call(key);
-export const read$ = call(read);
-export const query$ = call(query);
-export const mutation$ = call(mutation);
+export const key$ = call(key, 'key');
+export const read$ = call(read, 'read');
+export const query$ = call(query, 'query');
+export const mutation$ = call(mutation, 'mutation');
