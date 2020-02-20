@@ -16,6 +16,12 @@
 
   const dispatch = createEventDispatcher();
 
+  function handleSubmit(e) {
+    if (e.target.checkValidity()) {
+      dispatch('submit', e);
+    }
+  }
+
   function checkEscape(e) {
     if (modal && e.keyCode === 27) {
       dispatch('cancel', e);
@@ -87,7 +93,7 @@
 <div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
   <div class="wrapper">
     <slot name="before" />
-    <form {id} class="{className || cssClass}" on:submit|preventDefault class:loading={$conn$.loading}>
+    <form {id} class="{className || cssClass}" on:submit|preventDefault={handleSubmit} class:loading={$conn$.loading}>
       <slot />
     </form>
     <slot name="after" />
