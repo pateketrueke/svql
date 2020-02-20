@@ -91,7 +91,7 @@ Since `mutation()` returns a function there's no need to setup reactive statemen
 
 You can access `svql` stores as `conn` and `state` respectively, however is better to use the following components to deal with. :sunglasses:
 
-### `<Failure {label} {error} />`
+### `<Failure {label} {error} {format} {noformat} {nodebug} />`
 
 This component is used to format captured errors from `{:catch}` blocks.
 
@@ -99,6 +99,9 @@ Available props:
 
 - `{label}` &mdash; Title used for the failure message
 - `{error}` &mdash; Error object or array of errors to display
+- `{format}` &mdash; Custom function for formatting, receives each error
+- `{nodebug}` &mdash; Boolean; if present, print more details, otherwise format by default
+- `{noformat}` &mdash; Boolean; if present, disable format completely when `{nodebug}` is missing
 
 ### `<Status {from} {label} {pending} {otherwise} />`
 
@@ -126,7 +129,7 @@ Use this component to access data `from={promise}` inside, or `from={GQL}` to ex
 
 Available props:
 
-- `{nostatus}` &mdash; Its presence disables the `<Status />` render
+- `{nostatus}` &mdash; Boolean; its presence disables the `<Status />` render
 - `{loading}` &mdash; Message while the promise is being resolved...
 - `{...}` &mdash; Same props from `<Status />`
 - `let:data` &mdash; Unbound `data` inside
@@ -137,7 +140,7 @@ Available slots:
 - `loading` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
 - `failure` &mdash; Replace the `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
-### `<In {id} {class|className} {modal} {autofocus} />`
+### `<In {id} {class} {modal} {autofocus} />`
 
 It is a `<form />` wrapper that handle various effects:
 
@@ -148,7 +151,7 @@ It is a `<form />` wrapper that handle various effects:
 Available props:
 
 - `{id}` &mdash; Used `id` for the inner `<form />` element
-- `{class|className}` &mdash; Used `class` for the inner `<form />` element
+- `{class}` &mdash; Used `class` for the inner `<form />` element
 - `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
 - `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
