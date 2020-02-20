@@ -52,9 +52,9 @@
   <Route path="/tests">
     <button on:click={toggle}>Open modal</button>
     {#if show}
-      <In modal autofocus on:cancel={toggle}>
+      <In modal autofocus on:cancel={toggle} on:submit={toggle}>
         <input type="text" />
-        <button on:click={toggle}>close</button>
+        <button type="submit">close</button>
       </In>
     {/if}
     <hr />
