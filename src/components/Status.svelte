@@ -2,9 +2,10 @@
   import Failure from './Failure.svelte';
 
   let status = -1;
-  let cssClass = '';
   let fixedClass = '';
   let fixedStyle = '';
+
+  const cssClass = '';
 
   export let from = null;
   export let label = 'An error has ocurred';
