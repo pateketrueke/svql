@@ -1,6 +1,6 @@
 {
   "name": "svql",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "FetchQL wrapper for Svelte 3",
   "main": "dist/svql.js",
   "svelte": "src/main.js",
