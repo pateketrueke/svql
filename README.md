@@ -140,13 +140,16 @@ Available slots:
 - `loading` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
 - `failure` &mdash; Replace the `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
-### `<In {id} {class} {modal} {autofocus} />`
+### `<In {id} {class} {modal} {autofocus} on:submit on:cancel />`
 
 It is a `<form />` wrapper that handle various effects:
 
 - Subscribes to the GraphQL connection status and block its content while loading...
 - When rendered as a modal-overlay it can be canceled with the `ESC` key or clicking outside
 - It can setup `autofocus` on the first input-element found inside the inner `<form />` wrapper (js only)
+
+> Before submitting HTML5 validation will run, if it's valid a `submit` event will be triggered.
+> The `cancel` event is fired when you click outside the modal, or press the `ESC` key to close the modal.
 
 Available props:
 
