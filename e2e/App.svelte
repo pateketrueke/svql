@@ -53,8 +53,11 @@
     <button on:click={toggle}>Open modal</button>
     {#if show}
       <In modal autofocus on:cancel={toggle} on:submit={toggle}>
-        <input type="text" />
-        <button type="submit">close</button>
+        <input type="hidden" />
+        <p><input type="number" readonly /></p>
+        <p><textarea disabled>OK</textarea></p>
+        <p><input type="text" /></p>
+        <p><button type="submit">close</button></p>
       </In>
     {/if}
     <hr />

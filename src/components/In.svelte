@@ -41,12 +41,10 @@
       let node;
 
       for (let i = 0; i < nodes.length; i += 1) {
-        if (nodes[i].tagName === 'INPUT' && nodes[i].type !== 'hidden') {
-          nodes[i].focus();
-          break;
-        }
-
+        if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue;
+        if (nodes[i].readOnly || nodes[i].disabled) continue;
         node = nodes[i];
+        break;
       }
 
       if (node) {
