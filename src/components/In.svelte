@@ -36,20 +36,16 @@
 
   onMount(() => {
     if (ref && autofocus) {
-      const nodes = ref.querySelectorAll('input,button,textarea');
+      setTimeout(() => {
+        const nodes = ref.querySelectorAll('input,button,textarea');
 
-      let node;
-
-      for (let i = 0; i < nodes.length; i += 1) {
-        if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue;
-        if (nodes[i].readOnly || nodes[i].disabled) continue;
-        node = nodes[i];
-        break;
-      }
-
-      if (node) {
-        setTimeout(() => node.focus(), 0);
-      }
+        for (let i = 0; i < nodes.length; i += 1) {
+          if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue;
+          if (nodes[i].readOnly || nodes[i].disabled) continue;
+          nodes[i].focus();
+          break;
+        }
+      }, 60);
     }
   });
 </script>
