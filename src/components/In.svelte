@@ -1,6 +1,8 @@
 <script context="module">
   const STACK = [];
 
+  let t;
+
   function push(el, close, current) {
     STACK.push({ el, close, current });
   }
@@ -17,7 +19,8 @@
       return;
     }
 
-    STACK.pop();
+    clearTimeout(t);
+    t = setTimeout(() => STACK.pop(), 120);
   }
 
   window.addEventListener('keyup', e => {
@@ -26,7 +29,7 @@
 </script>
 
 <script>
-  import { onMount, createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { conn$ } from '../client';
 
   let ref = null;
@@ -35,8 +38,8 @@
 
   export let id = '';
   export let modal = false;
+  export let visible = null;
   export let autofocus = false;
-  export let className = '';
   export { cssClass as class };
 
   const dispatch = createEventDispatcher();
@@ -55,12 +58,12 @@
     }
   }
 
-  onMount(() => {
-    if (ref) {
+  $: if (ref) {
+    if (visible === false) pop();
+    if (visible) {
       push(ref, closeMe, document.activeElement);
-      if (!autofocus) return;
 
-      setTimeout(() => {
+      if (autofocus) setTimeout(() => {
         const nodes = ref.querySelectorAll('input,button,textarea');
 
         for (let i = 0; i < nodes.length; i += 1) {
@@ -72,7 +75,7 @@
         }
       }, 60);
     }
-  });
+  }
 
   $: fixedClass = modal ? 'overlay' : 'inline';
 </script>
@@ -109,12 +112,14 @@
   }
 </style>
 
-<div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
-  <div class="wrapper">
-    <slot name="before" />
-    <form {id} class="{className || cssClass}" on:submit|preventDefault={handleSubmit} class:loading={$conn$.loading}>
-      <slot />
-    </form>
-    <slot name="after" />
+{#if visible}
+  <div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
+    <div class="wrapper">
+      <slot name="before" />
+      <form {id} class={cssClass} on:submit|preventDefault={handleSubmit} class:loading={$conn$.loading}>
+        <slot />
+      </form>
+      <slot name="after" />
+    </div>
   </div>
-</div>
+{/if}

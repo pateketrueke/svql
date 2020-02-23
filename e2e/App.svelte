@@ -8,16 +8,16 @@
 
   let promise;
   let checked;
-  let visible;
   let value;
   let show;
+  let sub;
 
   function toggle() {
     show = !show;
   }
 
   function open() {
-    visible = !visible;
+    sub = !sub;
   }
 
   function load() {
@@ -62,27 +62,23 @@
   <Route path="/:name" component={Pokemon} />
   <Route path="/tests">
     <button on:click={toggle}>Open modal</button>
-    {#if show}
-      <In modal autofocus on:cancel={toggle} on:submit={toggle}>
-        <input type="hidden" />
-        <p><input type="number" readonly /></p>
-        <p><textarea disabled>OK</textarea></p>
-        <p><input type="text" /></p>
-        <p>
-          <button type="button" on:click={open}>nested</button>
-          <button type="submit">close</button>
-        </p>
-        <div slot="after">
-          {#if visible}
-            <In modal autofocus on:cancel={open} on:submit={open}>
-              <button nofocus type="submit">x</button>
-              <input type="number" />
-              Sub modal
-            </In>
-          {/if}
-        </div>
-      </In>
-    {/if}
+    <In modal autofocus bind:visible={show} on:cancel={toggle} on:submit={toggle}>
+      <input type="hidden" />
+      <p><input type="number" readonly /></p>
+      <p><textarea disabled>OK</textarea></p>
+      <p><input type="text" /></p>
+      <p>
+        <button type="button" on:click={open}>nested</button>
+        <button type="submit">close</button>
+      </p>
+      <div slot="after">
+        <In modal autofocus bind:visible={sub} on:cancel={open} on:submit={open}>
+          <button nofocus type="button" on:click={open}>x</button>
+          <input type="number" />
+          Sub modal
+        </In>
+      </div>
+    </In>
     <hr />
     <button on:click={load}>Load promise</button>
     <label>

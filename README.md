@@ -140,7 +140,7 @@ Available slots:
 - `loading` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
 - `failure` &mdash; Replace the `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
-### `<In {id} {class} {modal} {autofocus} on:submit on:cancel />`
+### `<In {id} {class} {modal} {visible} {autofocus} on:submit on:cancel />`
 
 It is a `<form />` wrapper that handle various effects:
 
@@ -156,6 +156,7 @@ Available props:
 - `{id}` &mdash; Used `id` for the inner `<form />` element
 - `{class}` &mdash; Used `class` for the inner `<form />` element
 - `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
+- `{visible}` &mdash; Its value is used to toggle the render of the entire custom-element
 - `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
 > Add the `nofocus` or `data-nofocus` attribute to any element to skip autofocus on it, useful for close-icons, etc.
