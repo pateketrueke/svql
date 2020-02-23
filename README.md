@@ -158,6 +158,8 @@ Available props:
 - `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
 - `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
+> Add the `nofocus` or `data-nofocus` attribute to any element to skip autofocus on it, useful for close-icons, etc.
+
 ## Public API
 
 - `setupClient(options[, key])` &mdash; Configure a `FetchQL` singleton with the given `options`, `key` is used for session loading

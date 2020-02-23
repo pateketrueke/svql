@@ -64,7 +64,7 @@
         const nodes = ref.querySelectorAll('input,button,textarea');
 
         for (let i = 0; i < nodes.length; i += 1) {
-          if (typeof nodes[i].getAttribute('nofocus') !== 'undefined' || typeof nodes[i].dataset.nofocus !== 'undefined') continue;
+          if (nodes[i].getAttribute('nofocus') === '' || nodes[i].dataset.nofocus === '') continue;
           if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue;
           if (nodes[i].readOnly || nodes[i].disabled) continue;
           nodes[i].focus();

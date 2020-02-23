@@ -75,7 +75,9 @@
         <div slot="after">
           {#if visible}
             <In modal autofocus on:cancel={open} on:submit={open}>
-              Sub modal <button type="submit">x</button>
+              <button nofocus type="submit">x</button>
+              <input type="number" />
+              Sub modal
             </In>
           {/if}
         </div>
