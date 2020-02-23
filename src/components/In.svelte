@@ -1,3 +1,30 @@
+<script context="module">
+  const STACK = [];
+
+  function push(el, close, current) {
+    STACK.push({ el, close, current });
+  }
+
+  function pop(e) {
+    if (!STACK.length) return;
+
+    const { el, close, current } = STACK[STACK.length - 1];
+
+    setTimeout(() => current.focus(), 60);
+
+    if (e instanceof KeyboardEvent) {
+      close({ target: el });
+      return;
+    }
+
+    STACK.pop();
+  }
+
+  window.addEventListener('keyup', e => {
+    if (e.keyCode === 27) pop(e);
+  });
+</script>
+
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
   import { conn$ } from '../client';
@@ -12,30 +39,27 @@
   export let className = '';
   export { cssClass as class };
 
-  $: fixedClass = modal ? 'overlay' : 'inline';
-
   const dispatch = createEventDispatcher();
 
   function handleSubmit(e) {
     if (e.target.checkValidity()) {
       dispatch('submit', e);
-    }
-  }
-
-  function checkEscape(e) {
-    if (modal && e.keyCode === 27) {
-      dispatch('cancel', e);
+      pop(e);
     }
   }
 
   function closeMe(e) {
     if (modal && ref === e.target) {
       dispatch('cancel', e);
+      pop(e);
     }
   }
 
   onMount(() => {
-    if (ref && autofocus) {
+    if (ref) {
+      push(ref, closeMe, document.activeElement);
+      if (!autofocus) return;
+
       setTimeout(() => {
         const nodes = ref.querySelectorAll('input,button,textarea');
 
@@ -48,6 +72,8 @@
       }, 60);
     }
   });
+
+  $: fixedClass = modal ? 'overlay' : 'inline';
 </script>
 
 <style>
@@ -81,8 +107,6 @@
     padding: 10px;
   }
 </style>
-
-<svelte:window on:keyup={checkEscape} />
 
 <div class={fixedClass} on:click={closeMe} bind:this={ref} role="dialog">
   <div class="wrapper">

@@ -8,11 +8,16 @@
 
   let promise;
   let checked;
+  let visible;
   let value;
   let show;
 
   function toggle() {
     show = !show;
+  }
+
+  function open() {
+    visible = !visible;
   }
 
   function load() {
@@ -39,9 +44,15 @@
   body {
     margin: 0;
   }
-</style>
 
-{$router.path}
+  input:active,
+  input:focus,
+  button:active,
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+  }
+</style>
 
 <Router>
   <Route exact path="/">
@@ -57,7 +68,17 @@
         <p><input type="number" readonly /></p>
         <p><textarea disabled>OK</textarea></p>
         <p><input type="text" /></p>
-        <p><button type="submit">close</button></p>
+        <p>
+          <button type="button" on:click={open}>nested</button>
+          <button type="submit">close</button>
+        </p>
+        <div slot="after">
+          {#if visible}
+            <In modal autofocus on:cancel={open} on:submit={open}>
+              Sub modal <button type="submit">x</button>
+            </In>
+          {/if}
+        </div>
       </In>
     {/if}
     <hr />
