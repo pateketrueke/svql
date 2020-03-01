@@ -1,7 +1,26 @@
 <script context="module">
   const STACK = [];
 
+  let is;
   let t;
+
+  function isSearch(e) {
+    return e.target.tagName === 'INPUT' && e.target.type === 'search';
+  }
+
+  function update(e) {
+    if (isSearch(e)) {
+      is = e.target.value.length === 0;
+    }
+  }
+
+  function sync(e) {
+    if (e.keyCode === 27) {
+      if (isSearch(e)) {
+        if (is) pop(e);
+      } else pop(e);
+    }
+  }
 
   function push(el, close, current) {
     STACK.push({ el, close, current });
@@ -23,9 +42,9 @@
     t = setTimeout(() => STACK.pop(), 120);
   }
 
-  window.addEventListener('keyup', e => {
-    if (e.keyCode === 27) pop(e);
-  });
+  window.addEventListener('focus', update);
+  window.addEventListener('keyup', update);
+  window.addEventListener('keydown', sync);
 </script>
 
 <script>
