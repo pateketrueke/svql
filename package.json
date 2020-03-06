@@ -52,7 +52,7 @@
     "sirv-cli": "^0.4.4",
     "svelte": "^3.18.2",
     "testcafe": "^1.5.0",
-    "yrv": "0.0.18"
+    "yrv": "0.0.24"
   },
   "dependencies": {
     "fetchql": "^3.0.0"
