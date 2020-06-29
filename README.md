@@ -29,17 +29,17 @@
 </Out>
 ```
 
-## How it works?
+## How it works.
 
-`svql` use a [fetchql]() singleton to talk with GraphQL, configure it through the `setupClient()` method.
+`svql` uses a [fetchql]() singleton to talk to GraphQL.  You can configure it through the `setupClient()` method.
 
-Both `query` and `mutation` helpers will take the GQL and returns a promise or function that returns a promise, respectively.
+Both `query` and `mutation` helpers will take the GQL and return a promise (or function that returns a promise, respectively).
 
 ### `query(gql[, data[, callback]]): Promise`
 
-> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}` and such, `data` is optional the same as `callback` function. Any truthy value returned by this callback will be used in-place of the regular response.
+> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}`.  `data` is optional, as is the `callback` function. Any truthy value returned by this callback will be used in-place of the regular response.
 
-Accessing those values can be done through `<Out />` components as above, or by watching the returned promises, e.g.
+Accessing those values can be done through `<Out />` components as shown above, or by watching the returned promises:
 
 ```html
 <script>
@@ -49,7 +49,7 @@ Accessing those values can be done through `<Out />` components as above, or by 
 <!-- we can use {#await promise}...{/await} -->
 ```
 
-Refetching of queries can be done through reactive statements, e.g.
+Refetching of queries can be done through reactive statements:
 
 ```html
 <script>
@@ -59,13 +59,13 @@ Refetching of queries can be done through reactive statements, e.g.
 </script>
 ```
 
-So each time `name` changes the query is executed again.
+Each time `name` changes, the query re-executes.
 
 ### `mutation(gql[, callback]): Function`
 
 > The callback will receive a `commit` function that accepts variables-input as first argument, and optionally a second function to handle the response. Values returned by this function are also promises.
 
-Mutations are functions that could make more work, so you need to be sure and `commit` once you're ready for the actual request, e.g.
+Mutations are functions that could result in more work, so you need to be sure and `commit` once you're ready for the actual request:
 
 ```html
 <script>
@@ -85,11 +85,11 @@ Mutations are functions that could make more work, so you need to be sure and `c
 <button on:click={doLogin}>Log in</button>
 ```
 
-Since `mutation()` returns a function there's no need to setup reactive statements to _refetch_ it, just calling the generated function is enough.
+Since `mutation()` returns a function, there's no need to setup reactive statements to _refetch_ it. Just calling the generated function is enough.
 
 ## Components
 
-You can access `svql` stores as `conn` and `state` respectively, however is better to use the following components to deal with. :sunglasses:
+You can access `svql` stores as `conn` and `state` respectively.  However, it is better to use the following components to handle state. :sunglasses:
 
 ### `<Failure {label} {error} {format} {noformat} {nodebug} />`
 
@@ -105,7 +105,7 @@ Available props:
 
 ### `<Status {from} {label} {pending} {otherwise} />`
 
-It takes a `from={promise}` value and then render its progress, catch the failure, etc.
+This takes a `from={promise}` value, then renders its progress, catches the failure, etc.
 
 Available props:
 
@@ -142,10 +142,10 @@ Available slots:
 
 ### `<In {id} {class} {modal} {visible} {autofocus} on:submit on:cancel />`
 
-It is a `<form />` wrapper that handle various effects:
+This is a `<form />` wrapper that handle various effects:
 
 - Subscribes to the GraphQL connection status and block its content while loading...
-- When rendered as a modal-overlay it can be canceled with the `ESC` key or clicking outside
+- When rendered as a modal-overlay, it can be canceled with the `ESC` key or clicking outside
 - It can setup `autofocus` on the first input-element found inside the inner `<form />` wrapper (js only)
 
 > Before submitting HTML5 validation will run, if it's valid a `submit` event will be triggered.
@@ -159,7 +159,7 @@ Available props:
 - `{visible}` &mdash; Its value is used to toggle the render of the entire custom-element
 - `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
 
-> Add the `nofocus` or `data-nofocus` attribute to any element to skip autofocus on it, useful for close-icons, etc.
+> Add the `nofocus` or `data-nofocus` attribute to any element to skip autofocus on it (useful for close-icons, etc.).
 
 ## Public API
 
