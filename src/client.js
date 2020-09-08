@@ -148,11 +148,23 @@ export class GraphQLClient {
       ...options,
     });
 
+    this.setToken = token => {
+      this.client.requestObject.headers.Authorization = `Bearer ${token}`;
+    };
+
     // overload methods/accesors
     this.key = (...args) => key(this.client, ...args);
     this.read = (...args) => read(this.client, ...args);
     this.query = (...args) => query(this.client, ...args);
     this.mutation = (...args) => mutation(this.client, ...args);
+  }
+
+  static setToken(token) {
+    if (!(_client && _client.client)) {
+      throw new Error('setupClient() must be called before setToken()!');
+    }
+
+    _client.setToken(token);
   }
 
   static setClient(client) {

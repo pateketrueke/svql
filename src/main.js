@@ -31,13 +31,14 @@ function _getJSON(sessionKey) {
 
 export function saveSession(values, sessionKey) {
   localStorage.setItem(sessionKey || 'session', JSON.stringify(values || {}));
+
+  if (values && values.token) {
+    GraphQLClient.setToken(values.token);
+  }
 }
 
 export function useToken(value, sessionKey) {
-  localStorage.setItem(sessionKey || 'session', JSON.stringify({
-    ..._getJSON(sessionKey),
-    token: value,
-  }));
+  saveSession({ ..._getJSON(sessionKey), token: value }, sessionKey);
 }
 
 export function useClient(options, sessionKey) {

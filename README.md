@@ -173,3 +173,5 @@ Available props:
 - `$conn` &mdash; Store with connection details during `fetchql` requests
 
 > `sqvl` use **Bearer authentication** by default, so any token found in the session will be sent forth-and-back.
+
+If you want to change your client's authorization token, you may call `client.setToken()` &mdash; or `useToken()` globally.
