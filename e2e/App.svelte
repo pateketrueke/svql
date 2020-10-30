@@ -1,6 +1,6 @@
-<script>
+<script>//
   import {
-    Router, Route, Link, router,
+    Router, Route, Link,
   } from 'yrv';
 
   import { In, Status } from '../src/main';
@@ -37,11 +37,11 @@
     box-sizing: border-box;
   }
 
-  html, body {
+  :global(html, body) {
     height: 100%;
   }
 
-  body {
+  :global(body) {
     margin: 0;
   }
 

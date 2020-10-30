@@ -1,8 +1,7 @@
-<script>
+<script>//
   import Failure from './Failure.svelte';
 
   let status = -1;
-  let fixedClass = '';
   let fixedStyle = '';
 
   const cssClass = '';

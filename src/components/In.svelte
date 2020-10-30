@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module">//
   const STACK = [];
 
   let is;
@@ -11,14 +11,6 @@
   function update(e) {
     if (isSearch(e)) {
       is = e.target.value.length === 0;
-    }
-  }
-
-  function sync(e) {
-    if (e.keyCode === 27) {
-      if (isSearch(e)) {
-        if (is) pop(e);
-      } else pop(e);
     }
   }
 
@@ -40,6 +32,14 @@
 
     clearTimeout(t);
     t = setTimeout(() => STACK.pop(), 120);
+  }
+
+  function sync(e) {
+    if (e.keyCode === 27) {
+      if (isSearch(e)) {
+        if (is) pop(e);
+      } else pop(e);
+    }
   }
 
   window.addEventListener('focus', update);
@@ -82,17 +82,19 @@
     if (visible) {
       push(ref, closeMe, document.activeElement);
 
-      if (autofocus) setTimeout(() => {
-        const nodes = ref.querySelectorAll('input,button,textarea');
+      if (autofocus) {
+        setTimeout(() => {
+          const nodes = ref.querySelectorAll('input,button,textarea');
 
-        for (let i = 0; i < nodes.length; i += 1) {
-          if (nodes[i].getAttribute('nofocus') === '' || nodes[i].dataset.nofocus === '') continue;
-          if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue;
-          if (nodes[i].readOnly || nodes[i].disabled) continue;
-          nodes[i].focus();
-          break;
-        }
-      }, 60);
+          for (let i = 0; i < nodes.length; i += 1) {
+            if (nodes[i].getAttribute('nofocus') === '' || nodes[i].dataset.nofocus === '') continue; // eslint-disable-line
+            if (nodes[i].tagName === 'INPUT' && nodes[i].type === 'hidden') continue; // eslint-disable-line
+            if (nodes[i].readOnly || nodes[i].disabled) continue; // eslint-disable-line
+            nodes[i].focus();
+            break;
+          }
+        }, 60);
+      }
     }
   }
 

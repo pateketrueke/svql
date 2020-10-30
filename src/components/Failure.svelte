@@ -1,4 +1,4 @@
-<script>
+<script>//
   export let label = null;
   export let error = null;
   export let format = null;
