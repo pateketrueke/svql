@@ -9,7 +9,7 @@
   import { Out, query, setupClient } from 'svql';
 
   setupClient({
-    url: 'https://graphql-pokemon.now.sh/graphql',
+    url: 'https://graphql-pokemon2.vercel.app/',
   });
 
   const GET_POKEMON_INFO = `
