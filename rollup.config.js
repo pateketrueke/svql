@@ -25,7 +25,14 @@ export default {
   external: isProd ? ['svelte', 'svelte/store', 'svelte/internal'] : [],
   plugins: [
     svelte({
-      dev: isDev,
+      emitCss: false,
+      compilerOptions: {
+        dev: isDev,
+      },
+      onwarn: (warning, handler) => {
+        if (warning.code === 'module-script-reactive-declaration') return;
+        handler(warning);
+      },
     }),
     resolve(),
     commonjs(),
