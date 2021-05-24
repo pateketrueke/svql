@@ -4,7 +4,6 @@ import {
 
 export { default as Status } from './components/Status.svelte';
 export { default as Failure } from './components/Failure.svelte';
-export { default as In } from './components/In.svelte';
 export { default as Out } from './components/Out.svelte';
 
 // shared stores

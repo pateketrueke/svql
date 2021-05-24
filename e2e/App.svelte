@@ -3,22 +3,12 @@
     Router, Route, Link,
   } from 'yrv';
 
-  import { In, Status } from '../src/main';
+  import { Status } from '../src/main';
   import { Pokemon } from './pages/pokemon';
 
   let promise;
   let checked;
   let value;
-  let show;
-  let sub;
-
-  function toggle() {
-    show = !show;
-  }
-
-  function open() {
-    sub = !sub;
-  }
 
   function load() {
     promise = new Promise((ok, err) => {
@@ -61,26 +51,6 @@
   </Route>
   <Route path="/:name" component={Pokemon} />
   <Route path="/tests">
-    <button on:click={toggle}>Open modal</button>
-    <In modal autofocus bind:visible={show} on:cancel={toggle} on:submit={toggle}>
-      <input type="hidden" />
-      <p><input type="number" readonly /></p>
-      <p><textarea disabled>OK</textarea></p>
-      <p><input type="search" /></p>
-      <p><input type="text" /></p>
-      <p>
-        <button type="button" on:click={open}>nested</button>
-        <button type="submit">close</button>
-      </p>
-      <div slot="after">
-        <In modal autofocus bind:visible={sub} on:cancel={open} on:submit={open}>
-          <button nofocus type="button" on:click={open}>x</button>
-          <input type="number" />
-          Sub modal
-        </In>
-      </div>
-    </In>
-    <hr />
     <button on:click={load}>Load promise</button>
     <label>
       <input type="checkbox" bind:checked />

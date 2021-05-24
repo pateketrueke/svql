@@ -140,26 +140,11 @@ Available slots:
 - `loading` &mdash; Replace the `{:then}` block, default is an `<h3 />`; it receives `let:result`
 - `failure` &mdash; Replace the `{:catch}` block, default is `<Failure />`; it receives `let:error`
 
-### `<In {id} {class} {modal} {visible} {autofocus} on:submit on:cancel />`
+### `<In ... />`
 
-This is a `<form />` wrapper that handle various effects:
+Not longer shipped, use a separate `Fence` component from [smoo](https://github.com/pateketrueke/smoo)
 
-- Subscribes to the GraphQL connection status and block its content while loading...
-- When rendered as a modal-overlay, it can be canceled with the `ESC` key or clicking outside
-- It can setup `autofocus` on the first input-element found inside the inner `<form />` wrapper (js only)
-
-> Before submitting HTML5 validation will run, if it's valid a `submit` event will be triggered.
-> The `cancel` event is fired when you click outside the modal, or press the `ESC` key to close the modal.
-
-Available props:
-
-- `{id}` &mdash; Used `id` for the inner `<form />` element
-- `{class}` &mdash; Used `class` for the inner `<form />` element
-- `{modal}` &mdash; Its presence will render the inner `<form />` in a modal-overlay
-- `{visible}` &mdash; Its value is used to toggle the render of the entire custom-element
-- `{autofocus}` &mdasg; Its presence enables `focus()` on the first input-element found
-
-> Add the `nofocus` or `data-nofocus` attribute to any element to skip autofocus on it (useful for close-icons, etc.).
+> Loading states should be bound as `<Fence loading={$conn.loading}>...</Fence>` to properly block de UI.
 
 ## Public API
 
