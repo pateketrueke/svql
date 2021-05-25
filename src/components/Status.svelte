@@ -1,5 +1,5 @@
 <script>//
-  import Failure from './Failure.svelte';
+  import Failure from 'smoo/src/components/Failure.svelte';
 
   let status = -1;
   let fixedStyle = '';

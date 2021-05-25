@@ -91,17 +91,9 @@ Since `mutation()` returns a function, there's no need to setup reactive stateme
 
 You can access `svql` stores as `conn` and `state` respectively.  However, it is better to use the following components to handle state. :sunglasses:
 
-### `<Failure {label} {error} {format} {noformat} {nodebug} />`
+### `<Failure ... />`
 
-This component is used to format captured errors from `{:catch}` blocks.
-
-Available props:
-
-- `{label}` &mdash; Title used for the failure message
-- `{error}` &mdash; Error object or array of errors to display
-- `{format}` &mdash; Custom function for formatting, receives each error
-- `{nodebug}` &mdash; Boolean; if present, print more details, otherwise format by default
-- `{noformat}` &mdash; Boolean; if present, disable format completely when `{nodebug}` is missing
+Re-exported `Failure` component from [smoo](https://github.com/pateketrueke/smoo).
 
 ### `<Status {from} {label} {pending} {otherwise} />`
 
@@ -142,7 +134,7 @@ Available slots:
 
 ### `<In ... />`
 
-Not longer shipped, use a separate `Fence` component from [smoo](https://github.com/pateketrueke/smoo)
+Not longer shipped, use a separate `Fence` component from [smoo](https://github.com/pateketrueke/smoo).
 
 > Loading states should be bound as `<Fence loading={$conn.loading}>...</Fence>` to properly block de UI.
 

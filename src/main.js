@@ -1,9 +1,10 @@
+export { default as Failure } from 'smoo/src/components/Failure.svelte';
+
 import {
   GraphQLClient, state$, conn$, query$, mutation$, key$, read$,
 } from './client';
 
 export { default as Status } from './components/Status.svelte';
-export { default as Failure } from './components/Failure.svelte';
 export { default as Out } from './components/Out.svelte';
 
 // shared stores
