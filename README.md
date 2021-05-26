@@ -31,13 +31,13 @@
 
 ## How it works.
 
-`svql` uses a [fetchql]() singleton to talk to GraphQL.  You can configure it through the `setupClient()` method.
+`svql` uses a [fetchql]() singleton to talk to GraphQL. You can configure it through the `setupClient()` method.
 
 Both `query` and `mutation` helpers will take the GQL and return a promise (or function that returns a promise, respectively).
 
 ### `query(gql[, data[, callback]]): Promise`
 
-> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}`.  `data` is optional, as is the `callback` function. Any truthy value returned by this callback will be used in-place of the regular response.
+> Queries are indexed so you can refer to them as `from={MY_GQL_QUERY}`. `data` is optional, as is the `callback` function. Any truthy value returned by this callback will be used in-place of the regular response.
 
 Accessing those values can be done through `<Out />` components as shown above, or by watching the returned promises:
 
@@ -134,9 +134,9 @@ Available slots:
 
 ### `<In ... />`
 
-Not longer shipped, use a separate `Fence` component from [smoo](https://github.com/pateketrueke/smoo).
+No longer shipped, use a separate `Fence` component from [smoo](https://github.com/pateketrueke/smoo).
 
-> Loading states should be bound as `<Fence loading={$conn.loading}>...</Fence>` to properly block de UI.
+> Loading states should be bound as `<Fence loading={$conn.loading}>...</Fence>` to properly block the UI.
 
 ## Public API
 
