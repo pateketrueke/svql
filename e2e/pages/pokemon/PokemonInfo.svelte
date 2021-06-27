@@ -1,4 +1,4 @@
-<script context="module">//
+<script context="module">
   import { useClient } from '../../../src/main';
   import { delay } from '../../helpers';
 
