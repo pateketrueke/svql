@@ -1,5 +1,5 @@
-<script>//
-  import Failure from 'smoo/src/components/Failure.svelte';
+<script>
+  import { Failure } from 'smoo';
 
   let status = -1;
   let fixedStyle = '';
@@ -44,7 +44,7 @@
     overflow: auto;
     padding: 10px;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
     bottom: 0;
     left: 0;
   }

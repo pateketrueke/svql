@@ -1,5 +1,3 @@
-export { default as Failure } from 'smoo/src/components/Failure.svelte';
-
 import {
   GraphQLClient, state$, conn$, query$, mutation$, key$, read$,
 } from './client';

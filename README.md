@@ -93,7 +93,7 @@ You can access `svql` stores as `conn` and `state` respectively.  However, it is
 
 ### `<Failure ... />`
 
-Re-exported `Failure` component from [smoo](https://github.com/pateketrueke/smoo).
+No longer shipped, use a separate `Failure` component from [smoo](https://github.com/pateketrueke/smoo).
 
 ### `<Status {from} {label} {pending} {otherwise} />`
 

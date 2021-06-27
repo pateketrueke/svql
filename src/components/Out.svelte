@@ -1,5 +1,5 @@
 <script>
-  import Failure from 'smoo/src/components/Failure.svelte';
+  import { Failure } from 'smoo';
   import { isFailure, state$, key$ } from '../client';
   import Status from './Status.svelte';
 

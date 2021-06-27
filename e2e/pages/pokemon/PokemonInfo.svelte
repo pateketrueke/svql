@@ -19,7 +19,7 @@
   export let name = 'Pikachu';
 
   // delayed response for testing purposes
-  $: promise = delay(query(GET_POKEMON_INFO, { name }), 1000);
+  $: promise = delay(query(GET_POKEMON_INFO, { name }), 1500);
 </script>
 
 <slot {promise} />
