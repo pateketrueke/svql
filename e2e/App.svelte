@@ -1,7 +1,8 @@
-<script>//
+<script>
   import {
     Router, Route, Link,
   } from 'yrv';
+  import { Fence } from 'smoo';
 
   import { Status } from '../src/main';
   import { Pokemon } from './pages/pokemon';
@@ -17,6 +18,13 @@
         else ok(42);
       }, value || 1000);
     });
+  }
+
+  let name;
+  let visible;
+  function toggle() {
+    visible = !visible;
+    name = null;
   }
 </script>
 
@@ -47,7 +55,19 @@
 <Router>
   <Route exact path="/">
     <h1>It works!</h1>
-    <Link href="/tests">Go to test-page</Link>
+    <Link href="/tests">Go to test-page</Link> or <button on:click={toggle}>open test</button>
+    <Fence modal autofocus bind:visible on:cancel={toggle}>
+      <select bind:value={name}>
+        <option value="" disabled selected>Choose wisely!</option>
+        <option>charmander</option>
+        <option>bulbasaur</option>
+        <option>squirtle</option>
+      </select>
+      {#if name}
+        <Pokemon {name} />
+      {/if}
+      <button on:click={toggle}>close</button>
+    </Fence>
   </Route>
   <Route path="/:name" component={Pokemon} />
   <Route path="/tests">
