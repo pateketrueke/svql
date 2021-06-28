@@ -1,5 +1,5 @@
 <script context="module">
-  import { useClient } from '../../../src/main';
+  import { useClient } from 'svql';
   import { delay } from '../../helpers';
 
   const { query } = useClient({

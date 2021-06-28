@@ -1,10 +1,7 @@
 <script>
-  import {
-    Router, Route, Link,
-  } from 'yrv';
+  import { Router, Route, Link } from 'yrv';
   import { Fence } from 'smoo';
-
-  import { Status } from '../src/main';
+  import { Status } from 'svql';
   import { Pokemon } from './pages/pokemon';
 
   let promise;
@@ -35,7 +32,7 @@
     box-sizing: border-box;
   }
 
-  :global(html, body) {
+  :global(html), :global(body) {
     height: 100%;
   }
 

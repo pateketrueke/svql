@@ -2,24 +2,19 @@
   "name": "svql",
   "version": "0.0.31",
   "description": "FetchQL wrapper for Svelte 3",
-  "main": "dist/svql.js",
-  "svelte": "src/main.js",
-  "module": "dist/svql.es.js",
-  "unpkg": "dist/svql.min.js",
-  "browser": "dist/svql.min.js",
+  "svelte": "build/main.js",
   "files": [
-    "src/**",
-    "dist/*"
+    "build/**"
   ],
   "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
-    "serve": "sirv docs --dev --quiet --single --port 8080",
-    "lint": "eslint src e2e",
-    "prepublishOnly": "NODE_ENV=production npm run build",
-    "pretest": "npm run lint && NODE_ENV=test npm run build",
-    "test": "npm run test:e2e -- ${BROWSER:-chrome:headless} -a 'npm run serve' e2e/cases",
-    "test:e2e": "BASE_URL=http://localhost:8080 testcafe"
+    "lint": "eslint --ext js,svelte src e2e",
+    "dev": "npm run build:test -- -w src",
+    "mortero": "mortero -asvql:./src/main.js -r'**:{filepath/1}' -X{cases,components}",
+    "build:test": "npm run mortero -- e2e -B'**/test.js'",
+    "build": "mortero src -fK -r'**:{filepath/1}' --format esm",
+    "prepublishOnly": "rm -rf build/* && NODE_ENV=production npm run build",
+    "test": "npm run build:test && npm run test:e2e",
+    "test:e2e": "BASE_URL=http://localhost:8080 testcafe ${BROWSER:-chrome:headless} -q -a 'npm run dev' e2e/cases"
   },
   "repository": {
     "type": "git",
@@ -43,20 +38,12 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-svelte3": "^3.2.0",
     "eslint-utils": ">=1.4.1",
-    "glob-parent": ">=5.1.2",
-    "minimist": ">=1.2.2",
-    "rollup": "^2.8.2",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.1",
-    "rollup-plugin-svelte": "^7.1.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "serialize-javascript": ">=2.1.1",
-    "sirv-cli": "^1.0.8",
-    "smoo": "^0.0.12",
+    "mortero": "^0.0.33",
+    "pug": "^3.0.2",
+    "smoo": "^0.0.13",
     "svelte": "^3.38.2",
-    "testcafe": "^1.5.0",
-    "ws": ">=5.2.3",
-    "yrv": "0.0.38"
+    "testcafe": "^1.9.4",
+    "yrv": "^0.0.46"
   },
   "dependencies": {
     "fetchql": "^3.0.0"

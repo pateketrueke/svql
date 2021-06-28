@@ -1,5 +1,5 @@
 <script>
-  import { Out } from '../../../src/main';
+  import { Out } from 'svql';
   import PokemonInfo from './PokemonInfo.svelte';
 
   export let router = null;
