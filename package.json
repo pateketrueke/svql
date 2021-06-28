@@ -11,7 +11,7 @@
     "dev": "npm run build:test -- -w src",
     "mortero": "mortero -asvql:./src/main.js -r'**:{filepath/1}' -X{cases,components}",
     "build:test": "npm run mortero -- e2e -B'**/test.js'",
-    "build": "mortero src -fK -r'**:{filepath/1}' --format esm",
+    "build": "mortero src -fK -r'**:{filepath/1}' -B'**/client.js' --format esm",
     "prepublishOnly": "rm -rf build/* && NODE_ENV=production npm run build",
     "test": "npm run build:test && npm run test:e2e",
     "test:e2e": "BASE_URL=http://localhost:8080 testcafe ${BROWSER:-chrome:headless} -q -a 'npm run dev' e2e/cases"
@@ -38,14 +38,12 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-svelte3": "^3.2.0",
     "eslint-utils": ">=1.4.1",
+    "fetchql": "^3.0.0",
     "mortero": "^0.0.33",
     "pug": "^3.0.2",
     "smoo": "^0.0.13",
     "svelte": "^3.38.2",
     "testcafe": "^1.9.4",
     "yrv": "^0.0.46"
-  },
-  "dependencies": {
-    "fetchql": "^3.0.0"
   }
 }
