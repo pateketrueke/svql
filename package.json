@@ -12,7 +12,7 @@
     "mortero": "mortero -asvql:./src/main.js -r'**:{filepath/1}' -X{cases,components}",
     "build:test": "npm run mortero -- e2e -B'**/test.js'",
     "build": "mortero src -fK -r'**:{filepath/1}' -B'**/client.js' --format esm",
-    "prepublishOnly": "rm -rf build/* && NODE_ENV=production npm run build",
+    "prepublishOnly": "rm -rf build/* && NODE_ENV=production npm run build && rm -rf build/svelte",
     "test": "npm run build:test && npm run test:e2e",
     "test:e2e": "BASE_URL=http://localhost:8080 testcafe ${BROWSER:-chrome:headless} -q -a 'npm run dev' e2e/cases"
   },
