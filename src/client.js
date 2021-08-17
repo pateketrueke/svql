@@ -74,6 +74,7 @@ export function resp(c, gql, result, callback) {
 
 export function query(c, gql, data, callback, onFailure) {
   if (typeof data === 'function') {
+    onFailure = callback;
     callback = data;
     data = undefined;
   }
