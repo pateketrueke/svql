@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import FetchQL from 'fetchql';
+import { FetchQL } from './vendor';
 
 export const conn$ = writable({});
 export const state$ = writable({});
