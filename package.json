@@ -52,7 +52,7 @@
     "eslint-plugin-svelte3": "^3.2.0",
     "eslint-utils": ">=1.4.1",
     "fetchql": "^3.0.0",
-    "mortero": "^0.0.42",
+    "mortero": "^0.0.87",
     "pug": "^3.0.2",
     "smoo": "^0.0.16",
     "svelte": "^3.38.2",
